@@ -1,13 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
-  const navigate = useNavigate();
-
-  const handleGetStarted = () => {
-    navigate('/signin');
-  };
-
   return (
     <div className="flex justify-between items-center min-h-screen bg-white p-0">
       {/* Image Section */}
@@ -32,10 +25,7 @@ const LandingPage = () => {
             for individuals seeking a stress-free way to stay focused on
             their goals, projects, and tasks.
           </p>
-          <button 
-            onClick={handleGetStarted}
-            className="bg-[#FFD700] text-[#111] border-none py-4 px-8 rounded-lg text-base font-medium cursor-pointer hover:bg-[#FFC700] transition-all duration-300 w-[calc(100%-2rem)] mx-4 mb-4 transform hover:scale-105 hover:shadow-lg active:scale-95"
-          >
+          <button className="bg-[#FFD700] text-[#111] border-none py-4 px-8 rounded-lg text-base font-medium cursor-pointer hover:bg-[#FFC700] transition-colors duration-300 w-[calc(100%-2rem)] mx-4 mb-4">
             Get Started
           </button>
           <p className="text-center text-[0.9rem] text-[#666]">

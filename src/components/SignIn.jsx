@@ -35,54 +35,47 @@ const SignIn = () => {
       {/* Content Section */}
       <div className="w-1/2 flex flex-col justify-center">
         <div className="p-16 bg-white h-[89vh] w-[77vh] border-2 border-[#e0e0e0] rounded-[30px] flex flex-col justify-center mr-[25vh]">
-          <h1 className="text-[3rem] text-[#111] mb-8 font-extrabold ml-8">
+          <h1 className="text-[3rem] text-[#111] mb-12 font-extrabold">
             Sign In
           </h1>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-[80%] ml-8 p-4 rounded-lg border-2 border-[#e0e0e0] focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700] transition-all duration-300"
-              placeholder="Email"
-              required
-            />
+          <form onSubmit={handleSubmit} className="space-y-8">
+            <div className="space-y-2">
+              <label className="block text-[1.1rem] text-[#666]">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full p-4 rounded-lg border-2 border-[#e0e0e0] focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700] transition-all duration-300"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
             
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-[80%] ml-8 p-4 rounded-lg border-2 border-[#e0e0e0] focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700] transition-all duration-300"
-              placeholder="Password"
-              required
-            />
+            <div className="space-y-2">
+              <label className="block text-[1.1rem] text-[#666]">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full p-4 rounded-lg border-2 border-[#e0e0e0] focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700] transition-all duration-300"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
             
             <button
               type="submit"
-              className="w-[80%] ml-8 bg-[#FFD700] text-[#111] py-4 px-8 rounded-lg text-base font-medium cursor-pointer hover:bg-[#FFC700] transition-all duration-300 transform hover:scale-105 hover:shadow-lg active:scale-95"
+              className="w-full bg-[#FFD700] text-[#111] py-4 px-8 rounded-lg text-base font-medium cursor-pointer hover:bg-[#FFC700] transition-all duration-300 transform hover:scale-105 hover:shadow-lg active:scale-95"
             >
               Sign In
             </button>
-
-            {/* Or Section */}
-            <div className="flex items-center justify-center w-[80%] ml-8 my-6">
-              <div className="flex-1 h-[1px] bg-[#e0e0e0]"></div>
-              <span className="mx-4 text-[#666]">or</span>
-              <div className="flex-1 h-[1px] bg-[#e0e0e0]"></div>
-            </div>
-
-            {/* Social Login Buttons */}
-            <div className="flex gap-4 w-[80%] ml-8">
-              <button className="flex-1 bg-[#ebebeb] text-[#111] py-4 px-8 rounded-lg text-base font-bold cursor-pointer hover:bg-[#e0e0e0] transition-all duration-300">
-                Google
-              </button>
-              <button className="flex-1 bg-[#ebebeb] text-[#111] py-4 px-8 rounded-lg text-base font-bold cursor-pointer hover:bg-[#e0e0e0] transition-all duration-300">
-                Facebook
-              </button>
-            </div>
           </form>
           
           <p className="mt-8 text-center text-[0.9rem] text-[#666]">
