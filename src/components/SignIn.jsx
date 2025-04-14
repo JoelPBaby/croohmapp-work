@@ -31,7 +31,7 @@ const SignIn = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="flex justify-between items-center min-h-screen bg-white p-0"
+      className="flex justify-between items-center min-h-screen bg-white p-0 font-['Google_Sans']"
     >
       {/* Image Section */}
       <motion.div 
@@ -61,7 +61,7 @@ const SignIn = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-[3rem] text-[#111] mb-8 font-extrabold ml-8"
+            className="text-[3rem] text-[#111] mb-8 font-bold ml-8"
           >
             Sign In
           </motion.h1>

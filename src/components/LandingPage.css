@@ -5,6 +5,7 @@
   min-height: 100vh;
   background-color: #fff;
   padding: 0;
+  font-family: 'Google Sans', system-ui, sans-serif;
 }
 
 .landing-card {
@@ -31,7 +32,8 @@
   left: 2rem;
   color: #fff;
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
+  font-family: 'Google Sans', system-ui, sans-serif;
 }
 
 .landing-image {
@@ -60,7 +62,8 @@
   font-size: 3rem;
   color: #111;
   margin-bottom: 1.5rem;
-  font-weight: 800;
+  font-weight: 700;
+  font-family: 'Google Sans', system-ui, sans-serif;
 }
 
 .landing-description {
@@ -70,6 +73,7 @@
   margin-bottom: 2rem;
   max-width: 100%;
   padding: 0 1rem;
+  font-family: 'Google Sans', system-ui, sans-serif;
 }
 
 .landing-button {
@@ -84,6 +88,7 @@
   transition: background-color 0.3s ease;
   width: calc(100% - 2rem);
   margin: 0 1rem 1rem 1rem;
+  font-family: 'Google Sans', system-ui, sans-serif;
 }
 
 .landing-button:hover {
@@ -94,12 +99,14 @@
   text-align: center;
   color: #666;
   font-size: 0.9rem;
+  font-family: 'Google Sans', system-ui, sans-serif;
 }
 
 .sign-in-link {
   color: #111;
   text-decoration: none;
   font-weight: 500;
+  font-family: 'Google Sans', system-ui, sans-serif;
 }
 
 .sign-in-link:hover {
