@@ -89,6 +89,7 @@ const HomePage = () => {
   ]);
   const { todos, addTodo, deleteTodo, toggleTodo, updateTodo, setTodos } = useStore();
   const navigate = useNavigate();
+  const [activeList, setActiveList] = useState('Personal');
 
   useEffect(() => {
     // Fetch todos from API
@@ -280,6 +281,11 @@ const HomePage = () => {
       return todo.todo.toLowerCase().includes(searchQuery.toLowerCase());
     }
     
+    // Then apply list filter if not in Today section
+    if (activeSection !== 'today' && todo.list !== activeList) {
+      return false;
+    }
+    
     // Then apply section filters
     if (activeSection === 'upcoming') {
       return !todo.completed;
@@ -300,6 +306,11 @@ const HomePage = () => {
   // Filter todos based on section
   const getTodosBySection = (section) => {
     return todos.filter(todo => todo.section === section);
+  };
+
+  // Add function to count todos by list
+  const getTodoCountByList = (list) => {
+    return todos.filter(todo => todo.list === list && !todo.completed).length;
   };
 
   return (
@@ -363,8 +374,8 @@ const HomePage = () => {
                 onClick={() => setActiveSection('upcoming')}
                 className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                   activeSection === 'upcoming' 
-                    ? 'bg-white dark:bg-gray-800' 
-                    : 'hover:bg-white dark:hover:bg-gray-800'
+                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
+                    : 'hover:bg-white dark:hover:bg-gray-700'
                 } rounded-lg group transition-colors`}
               >
                 <div className="flex items-center gap-3">
@@ -377,8 +388,8 @@ const HomePage = () => {
                 onClick={() => setActiveSection('today')}
                 className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                   activeSection === 'today' 
-                    ? 'bg-white dark:bg-gray-800' 
-                    : 'hover:bg-white dark:hover:bg-gray-800'
+                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
+                    : 'hover:bg-white dark:hover:bg-gray-700'
                 } rounded-lg group`}
               >
                 <div className="flex items-center gap-3">
@@ -391,8 +402,8 @@ const HomePage = () => {
                 onClick={() => setActiveSection('calendar')}
                 className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                   activeSection === 'calendar' 
-                    ? 'bg-white dark:bg-gray-800' 
-                    : 'hover:bg-white dark:hover:bg-gray-800'
+                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
+                    : 'hover:bg-white dark:hover:bg-gray-700'
                 } rounded-lg group transition-colors`}
               >
                 <div className="flex items-center gap-3">
@@ -404,8 +415,8 @@ const HomePage = () => {
                 onClick={() => setActiveSection('sticky-wall')}
                 className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                   activeSection === 'sticky-wall' 
-                    ? 'bg-white dark:bg-gray-800' 
-                    : 'hover:bg-white dark:hover:bg-gray-800'
+                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
+                    : 'hover:bg-white dark:hover:bg-gray-700'
                 } rounded-lg group transition-colors`}
               >
                 <div className="flex items-center gap-3">
@@ -421,28 +432,49 @@ const HomePage = () => {
           <div className="mb-8">
             <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">LISTS</h3>
             <div className="space-y-1">
-              <button className="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <button 
+                onClick={() => setActiveList('Personal')}
+                className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                  activeList === 'Personal' 
+                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
+                    : 'hover:bg-white dark:hover:bg-gray-700'
+                } rounded-lg transition-colors`}
+              >
                 <div className="flex items-center gap-3">
                   <div className="w-3 h-3 rounded-full bg-red-400"></div>
                   <span className="font-medium">Personal</span>
                 </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">3</span>
+                <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('Personal')}</span>
               </button>
-              <button className="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <button 
+                onClick={() => setActiveList('Work')}
+                className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                  activeList === 'Work' 
+                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
+                    : 'hover:bg-white dark:hover:bg-gray-700'
+                } rounded-lg transition-colors`}
+              >
                 <div className="flex items-center gap-3">
                   <div className="w-3 h-3 rounded-full bg-cyan-400"></div>
                   <span className="font-medium">Work</span>
                 </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">6</span>
+                <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('Work')}</span>
               </button>
-              <button className="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <button 
+                onClick={() => setActiveList('List 1')}
+                className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                  activeList === 'List 1' 
+                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
+                    : 'hover:bg-white dark:hover:bg-gray-700'
+                } rounded-lg transition-colors`}
+              >
                 <div className="flex items-center gap-3">
                   <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                   <span className="font-medium">List 1</span>
                 </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">3</span>
+                <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('List 1')}</span>
               </button>
-              <button className="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <button className="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
                 <div className="flex items-center gap-3">
                   <FiPlus className="text-gray-400 dark:text-gray-500" />
                   <span className="font-medium">Add New List</span>
@@ -555,9 +587,14 @@ const HomePage = () => {
               <div className="flex items-center gap-6">
                 <h1 className="text-6xl font-extrabold text-gray-800 dark:text-white">
                   {activeSection === 'upcoming' ? 'Upcoming' : 'Today'}
+                  {activeList !== 'Personal' && (
+                    <span className="text-3xl font-bold text-gray-400 dark:text-gray-300 ml-4">
+                      • {activeList}
+                    </span>
+                  )}
                 </h1>
                 <span className="text-6xl font-bold text-gray-400 dark:text-gray-300">
-                  {activeSection === 'upcoming' ? incompleteTodosCount : filteredTodos.length}
+                  {filteredTodos.length}
                 </span>
               </div>
             </div>
@@ -1223,6 +1260,19 @@ const HomePage = () => {
                 </div>
 
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">List</label>
+                  <select
+                    value={selectedTask.list || 'Personal'}
+                    onChange={(e) => handleTaskUpdate(selectedTask.id, { list: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ffd43b] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  >
+                    <option value="Personal" className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white">Personal</option>
+                    <option value="Work" className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white">Work</option>
+                    <option value="List 1" className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white">List 1</option>
+                  </select>
+                </div>
+
+                <div>
                   <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Description</label>
                   <textarea
                     value={selectedTask.description || ''}
@@ -1239,19 +1289,6 @@ const HomePage = () => {
                     onChange={(e) => handleTaskUpdate(selectedTask.id, { dueDate: e.target.value })}
                     className="w-full py-2 px-3 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none"
                   />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">List</label>
-                  <select
-                    value={selectedTask.list || 'Personal'}
-                    onChange={(e) => handleTaskUpdate(selectedTask.id, { list: e.target.value })}
-                    className="w-full py-2 px-3 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none"
-                  >
-                    <option value="Personal">Personal</option>
-                    <option value="Work">Work</option>
-                    <option value="List 1">List 1</option>
-                  </select>
                 </div>
 
                 <div>

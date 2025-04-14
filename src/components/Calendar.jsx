@@ -494,6 +494,21 @@ const Calendar = () => {
                   </div>
                 </div>
 
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    List
+                  </label>
+                  <select
+                    value={selectedEvent.list || 'Personal'}
+                    onChange={(e) => setSelectedEvent({ ...selectedEvent, list: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ffd43b] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  >
+                    <option value="Personal" className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white">Personal</option>
+                    <option value="Work" className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white">Work</option>
+                    <option value="List 1" className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white">List 1</option>
+                  </select>
+                </div>
+
                 <div className="flex justify-between gap-3 mt-6">
                   <button
                     type="button"

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -31,7 +33,7 @@ const SignIn = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="flex justify-between items-center min-h-screen bg-white p-0 font-['Google_Sans']"
+      className="flex justify-between items-center min-h-screen bg-white p-0 font-['Times_New_Roman']"
     >
       {/* Image Section */}
       <motion.div 
@@ -80,18 +82,27 @@ const SignIn = () => {
               required
             />
             
-            <motion.input
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-[80%] ml-8 p-4 rounded-lg border-2 border-[#e0e0e0] focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700] transition-all duration-300"
-              placeholder="Password"
-              required
-            />
+            <div className="relative w-[80%] ml-8">
+              <motion.input
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full p-4 rounded-lg border-2 border-[#e0e0e0] focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700] transition-all duration-300 pr-12 text-black"
+                placeholder="Password"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+              >
+                {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+              </button>
+            </div>
             
             <motion.button
               initial={{ y: 20, opacity: 0 }}
@@ -228,13 +239,7 @@ const SignIn = () => {
             transition={{ duration: 0.5, delay: 1.1 }}
             className="mt-8 text-center text-[0.9rem] text-[#666]"
           >
-            Don't have an account?{' '}
-            <Link 
-              to="/signup" 
-              className="text-[#111] font-medium hover:underline transition-colors duration-300"
-            >
-              Sign up
-            </Link>
+            Don't have an account? Contact administrator for access.
           </motion.p>
         </div>
       </motion.div>
