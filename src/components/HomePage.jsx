@@ -340,10 +340,10 @@ const HomePage = () => {
         initial={{ x: -400 }}
         animate={{ x: isMenuOpen ? 0 : -400 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className={`fixed h-[calc(100vh-40px)] bg-[#f4f4f4] dark:bg-gray-800 w-[400px] py-6 transition-all duration-300 z-40 top-5 left-5 rounded-[20px]`}
+        className={`fixed h-[calc(100vh-40px)] bg-[#f4f4f4] dark:bg-gray-800 w-[400px] py-6 transition-all duration-300 z-40 top-5 left-5 rounded-[20px] flex flex-col`}
       >
         <div className="flex flex-col h-full px-6">
-          {/* Header */}
+          {/* Header - Fixed */}
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl text-gray-700 dark:text-white font-medium">Menu</h2>
             <button 
@@ -354,149 +354,152 @@ const HomePage = () => {
             </button>
           </div>
 
-          {/* Search */}
-          <div className="relative mb-8">
-            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search"
-              className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#f4f4f4] dark:bg-gray-900 border-none text-gray-600 dark:text-gray-200 text-sm focus:ring-0 focus:border-gray-400 dark:focus:border-gray-600"
-            />
-          </div>
+          {/* Scrollable Content */}
+          <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-yellow-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
+            {/* Search */}
+            <div className="relative mb-8">
+              <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search"
+                className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#f4f4f4] dark:bg-gray-900 border-none text-gray-600 dark:text-gray-200 text-sm focus:ring-0 focus:border-gray-400 dark:focus:border-gray-600"
+              />
+            </div>
 
-          {/* Tasks Section */}
-          <div className="mb-8">
-            <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">TASKS</h3>
-            <div className="space-y-1">
-              <button 
-                onClick={() => setActiveSection('upcoming')}
-                className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
-                  activeSection === 'upcoming' 
-                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
-                    : 'hover:bg-white dark:hover:bg-gray-700'
-                } rounded-lg group transition-colors`}
-              >
-                <div className="flex items-center gap-3">
-                  <FiChevronsRight className="text-gray-400 dark:text-gray-500" />
-                  <span className="font-medium">Upcoming</span>
-                </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">{incompleteTodosCount}</span>
-              </button>
-              <button 
-                onClick={() => setActiveSection('today')}
-                className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
-                  activeSection === 'today' 
-                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
-                    : 'hover:bg-white dark:hover:bg-gray-700'
-                } rounded-lg group`}
-              >
-                <div className="flex items-center gap-3">
-                  <BsListTask className="text-gray-400 dark:text-gray-500" />
-                  <span className="font-medium">Today</span>
-                </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">{filteredTodos.length}</span>
-              </button>
-              <button 
-                onClick={() => setActiveSection('calendar')}
-                className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
-                  activeSection === 'calendar' 
-                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
-                    : 'hover:bg-white dark:hover:bg-gray-700'
-                } rounded-lg group transition-colors`}
-              >
-                <div className="flex items-center gap-3">
-                  <BsCalendarEvent className="text-gray-400 dark:text-gray-500" />
-                  <span className="font-medium">Calendar</span>
-                </div>
-              </button>
-              <button 
-                onClick={() => setActiveSection('sticky-wall')}
-                className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
-                  activeSection === 'sticky-wall' 
-                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
-                    : 'hover:bg-white dark:hover:bg-gray-700'
-                } rounded-lg group transition-colors`}
-              >
-                <div className="flex items-center gap-3">
-                  <BsStickyFill className="text-gray-400 dark:text-gray-500" />
-                  <span className="font-medium">Sticky Wall</span>
-                </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">{stickyNotes.length}</span>
-              </button>
+            {/* Tasks Section */}
+            <div className="mb-8">
+              <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">TASKS</h3>
+              <div className="space-y-1">
+                <button 
+                  onClick={() => setActiveSection('upcoming')}
+                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                    activeSection === 'upcoming' 
+                      ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
+                      : 'hover:bg-white dark:hover:bg-gray-700'
+                  } rounded-lg group transition-colors`}
+                >
+                  <div className="flex items-center gap-3">
+                    <FiChevronsRight className="text-gray-400 dark:text-gray-500" />
+                    <span className="font-medium">Upcoming</span>
+                  </div>
+                  <span className="text-sm text-gray-400 dark:text-gray-500">{incompleteTodosCount}</span>
+                </button>
+                <button 
+                  onClick={() => setActiveSection('today')}
+                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                    activeSection === 'today' 
+                      ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
+                      : 'hover:bg-white dark:hover:bg-gray-700'
+                  } rounded-lg group`}
+                >
+                  <div className="flex items-center gap-3">
+                    <BsListTask className="text-gray-400 dark:text-gray-500" />
+                    <span className="font-medium">Today</span>
+                  </div>
+                  <span className="text-sm text-gray-400 dark:text-gray-500">{filteredTodos.length}</span>
+                </button>
+                <button 
+                  onClick={() => setActiveSection('calendar')}
+                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                    activeSection === 'calendar' 
+                      ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
+                      : 'hover:bg-white dark:hover:bg-gray-700'
+                  } rounded-lg group transition-colors`}
+                >
+                  <div className="flex items-center gap-3">
+                    <BsCalendarEvent className="text-gray-400 dark:text-gray-500" />
+                    <span className="font-medium">Calendar</span>
+                  </div>
+                </button>
+                <button 
+                  onClick={() => setActiveSection('sticky-wall')}
+                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                    activeSection === 'sticky-wall' 
+                      ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
+                      : 'hover:bg-white dark:hover:bg-gray-700'
+                  } rounded-lg group transition-colors`}
+                >
+                  <div className="flex items-center gap-3">
+                    <BsStickyFill className="text-gray-400 dark:text-gray-500" />
+                    <span className="font-medium">Sticky Wall</span>
+                  </div>
+                  <span className="text-sm text-gray-400 dark:text-gray-500">{stickyNotes.length}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Lists Section */}
+            <div className="mb-8">
+              <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">LISTS</h3>
+              <div className="space-y-1">
+                <button 
+                  onClick={() => setActiveList('Personal')}
+                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                    activeList === 'Personal' 
+                      ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
+                      : 'hover:bg-white dark:hover:bg-gray-700'
+                  } rounded-lg transition-colors`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                    <span className="font-medium">Personal</span>
+                  </div>
+                  <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('Personal')}</span>
+                </button>
+                <button 
+                  onClick={() => setActiveList('Work')}
+                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                    activeList === 'Work' 
+                      ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
+                      : 'hover:bg-white dark:hover:bg-gray-700'
+                  } rounded-lg transition-colors`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full bg-cyan-400"></div>
+                    <span className="font-medium">Work</span>
+                  </div>
+                  <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('Work')}</span>
+                </button>
+                <button 
+                  onClick={() => setActiveList('List 1')}
+                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                    activeList === 'List 1' 
+                      ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
+                      : 'hover:bg-white dark:hover:bg-gray-700'
+                  } rounded-lg transition-colors`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                    <span className="font-medium">List 1</span>
+                  </div>
+                  <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('List 1')}</span>
+                </button>
+                <button className="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                  <div className="flex items-center gap-3">
+                    <FiPlus className="text-gray-400 dark:text-gray-500" />
+                    <span className="font-medium">Add New List</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            {/* Tags Section */}
+            <div className="mb-8">
+              <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">TAGS</h3>
+              <div className="flex flex-wrap gap-2 px-2">
+                <span className="px-3 py-1 bg-cyan-100 dark:bg-cyan-900 text-gray-700 dark:text-gray-200 rounded-full text-sm">Tag 1</span>
+                <span className="px-3 py-1 bg-pink-100 dark:bg-pink-900 text-gray-700 dark:text-gray-200 rounded-full text-sm">Tag 2</span>
+                <button className="px-3 py-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full text-sm flex items-center gap-1 transition-colors">
+                  <FiPlus size={14} />
+                  <span>Add Tag</span>
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Lists Section */}
-          <div className="mb-8">
-            <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">LISTS</h3>
-            <div className="space-y-1">
-              <button 
-                onClick={() => setActiveList('Personal')}
-                className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
-                  activeList === 'Personal' 
-                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
-                    : 'hover:bg-white dark:hover:bg-gray-700'
-                } rounded-lg transition-colors`}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                  <span className="font-medium">Personal</span>
-                </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('Personal')}</span>
-              </button>
-              <button 
-                onClick={() => setActiveList('Work')}
-                className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
-                  activeList === 'Work' 
-                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
-                    : 'hover:bg-white dark:hover:bg-gray-700'
-                } rounded-lg transition-colors`}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-cyan-400"></div>
-                  <span className="font-medium">Work</span>
-                </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('Work')}</span>
-              </button>
-              <button 
-                onClick={() => setActiveList('List 1')}
-                className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
-                  activeList === 'List 1' 
-                    ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
-                    : 'hover:bg-white dark:hover:bg-gray-700'
-                } rounded-lg transition-colors`}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                  <span className="font-medium">List 1</span>
-                </div>
-                <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('List 1')}</span>
-              </button>
-              <button className="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
-                <div className="flex items-center gap-3">
-                  <FiPlus className="text-gray-400 dark:text-gray-500" />
-                  <span className="font-medium">Add New List</span>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          {/* Tags Section */}
-          <div className="mb-8">
-            <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">TAGS</h3>
-            <div className="flex flex-wrap gap-2 px-2">
-              <span className="px-3 py-1 bg-cyan-100 dark:bg-cyan-900 text-gray-700 dark:text-gray-200 rounded-full text-sm">Tag 1</span>
-              <span className="px-3 py-1 bg-pink-100 dark:bg-pink-900 text-gray-700 dark:text-gray-200 rounded-full text-sm">Tag 2</span>
-              <button className="px-3 py-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full text-sm flex items-center gap-1 transition-colors">
-                <FiPlus size={14} />
-                <span>Add Tag</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Bottom Actions */}
+          {/* Bottom Actions - Fixed */}
           <div className="mt-auto space-y-1">
             <button className="w-full flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-800 rounded-lg transition-colors">
               <FiSettings className="text-gray-400 dark:text-gray-500" />
