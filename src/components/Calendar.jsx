@@ -204,6 +204,42 @@ const Calendar = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
       <div className="max-w-7xl mx-auto">
+        {/* Custom Scrollbar Styles */}
+        <style jsx global>{`
+          /* Custom Scrollbar Styles */
+          ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+          }
+          
+          ::-webkit-scrollbar-track {
+            background: #f4f4f4;
+            border-radius: 4px;
+          }
+          
+          ::-webkit-scrollbar-thumb {
+            background: #ffd43b;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+          }
+          
+          ::-webkit-scrollbar-thumb:hover {
+            background: #fcc419;
+          }
+          
+          .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+          }
+          
+          .dark ::-webkit-scrollbar-thumb {
+            background: #ffd43b;
+          }
+          
+          .dark ::-webkit-scrollbar-thumb:hover {
+            background: #fcc419;
+          }
+        `}</style>
+
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-6">
@@ -379,10 +415,10 @@ const Calendar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm"
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden"
           >
             {view === 'day' && (
-              <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              <div className="divide-y divide-gray-200 dark:divide-gray-700 max-h-[calc(100vh-200px)] overflow-y-auto">
                 {timeSlots.map((time, index) => {
                   const currentTime = new Date(currentDate);
                   currentTime.setHours(index);
@@ -427,8 +463,8 @@ const Calendar = () => {
             {view === 'week' && (
               <div className="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-700">
                 {getWeekDays().map((day, index) => (
-                  <div key={index} className="bg-white dark:bg-gray-800 min-h-[600px]">
-                    <div className="p-2 border-b border-gray-200 dark:border-gray-700">
+                  <div key={index} className="bg-white dark:bg-gray-800">
+                    <div className="sticky top-0 z-10 bg-white dark:bg-gray-800 p-2 border-b border-gray-200 dark:border-gray-700">
                       <div className="text-sm font-bold text-gray-500 dark:text-gray-400">
                         {day.toLocaleDateString('en-US', { weekday: 'short' })}
                       </div>
@@ -436,7 +472,7 @@ const Calendar = () => {
                         {day.getDate()}
                       </div>
                     </div>
-                    <div className="p-2">
+                    <div className="max-h-[calc(100vh-280px)] overflow-y-auto p-2">
                       {getDayEvents(day).map(event => (
                         <div
                           key={event.id}
@@ -458,41 +494,48 @@ const Calendar = () => {
 
             {view === 'month' && (
               <div className="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-700">
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                  <div key={day} className="bg-white dark:bg-gray-800 p-2 text-center">
-                    <span className="text-sm font-bold text-gray-500 dark:text-gray-400">
-                      {day}
-                    </span>
-                  </div>
-                ))}
-                {getMonthDays().map((day, index) => (
-                  <div 
-                    key={index}
-                    className={`bg-white dark:bg-gray-800 min-h-[100px] p-2 ${
-                      day.getMonth() === currentDate.getMonth()
-                        ? 'opacity-100'
-                        : 'opacity-50'
-                    }`}
-                  >
-                    <div className="text-right mb-2">
-                      <span className="text-sm font-bold text-gray-800 dark:text-gray-200">
-                        {day.getDate()}
+                <div className="col-span-7 grid grid-cols-7 gap-px">
+                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                    <div key={day} className="bg-white dark:bg-gray-800 p-2 text-center sticky top-0 z-10">
+                      <span className="text-sm font-bold text-gray-500 dark:text-gray-400">
+                        {day}
                       </span>
                     </div>
-                    <div className="space-y-1">
-                      {getDayEvents(day).map(event => (
-                        <div
-                          key={event.id}
-                          className={`${event.color} dark:bg-opacity-70 p-1 rounded text-xs`}
-                        >
-                          <span className="font-bold text-gray-800 dark:text-gray-900">
-                            {event.title}
-                          </span>
-                        </div>
-                      ))}
+                  ))}
+                </div>
+                <div className="col-span-7 grid grid-cols-7 gap-px max-h-[calc(100vh-280px)] overflow-y-auto">
+                  {getMonthDays().map((day, index) => (
+                    <div 
+                      key={index}
+                      className={`bg-white dark:bg-gray-800 min-h-[120px] p-2 ${
+                        day.getMonth() === currentDate.getMonth()
+                          ? 'opacity-100'
+                          : 'opacity-50'
+                      }`}
+                    >
+                      <div className="text-right mb-2">
+                        <span className="text-sm font-bold text-gray-800 dark:text-gray-200">
+                          {day.getDate()}
+                        </span>
+                      </div>
+                      <div className="space-y-1 overflow-y-auto">
+                        {getDayEvents(day).map(event => (
+                          <div
+                            key={event.id}
+                            className={`${event.color} dark:bg-opacity-70 p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow`}
+                          >
+                            <span className="font-bold text-gray-800 dark:text-gray-900 text-xs block truncate">
+                              {event.title}
+                            </span>
+                            <span className="text-xs text-gray-600 dark:text-gray-700">
+                              {formatTime(event.start)}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             )}
           </motion.div>
