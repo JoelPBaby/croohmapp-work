@@ -1,0 +1,127 @@
+.landing-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff;
+  padding: 0;
+}
+
+.landing-card {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.image-card {
+  background-color: #ffffff;
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: auto;
+}
+
+.brand-name {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.landing-image {
+  width: 70vh;
+  height: 89vh;
+  max-width: 10000px;
+  margin-right: -20rem;
+  border-radius: 30px;
+  display: block;
+}
+
+.content-card {
+  padding: 4rem;
+  background-color: #fff;
+  height: 74vh;
+  width: 57vh;
+  border: 2px solid #e0e0e0;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 25vh;
+}
+
+.landing-title {
+  font-size: 3rem;
+  color: #111;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+}
+
+.landing-description {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 100%;
+  padding: 0 1rem;
+}
+
+.landing-button {
+  background-color: #FFD700;
+  color: #111;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: calc(100% - 2rem);
+  margin: 0 1rem 1rem 1rem;
+}
+
+.landing-button:hover {
+  background-color: #FFC700;
+}
+
+.sign-in-text {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.sign-in-link {
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sign-in-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .landing-container {
+    flex-direction: column;
+  }
+  
+  .landing-card {
+    width: 100%;
+    height: auto;
+    min-height: 50vh;
+  }
+  
+  .content-card {
+    padding: 2rem;
+  }
+  
+  .landing-title {
+    font-size: 2.5rem;
+  }
+} 
