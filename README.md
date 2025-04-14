@@ -1,3 +1,164 @@
+# Memory Space - Todo App
+
+A modern, feature-rich todo application built with React, offering a beautiful and intuitive interface for task management.
+
+
+## Features
+
+- **Task Management**
+  - Create, edit, and delete tasks
+  - Organize tasks by sections (Today, Tomorrow, This Week)
+  - Add descriptions, due dates, and tags to tasks
+  - Mark tasks as complete/incomplete
+  - Add subtasks to main tasks
+
+- **List Organization**
+  - Create custom lists (Personal, Work, etc.)
+  - Filter tasks by list
+  - View task counts per list
+
+- **Calendar Integration**
+  - Day, Week, and Month views
+  - Add events with custom colors
+  - Visual event scheduling
+
+- **Sticky Wall**
+  - Create and organize sticky notes
+  - Color-coded notes for better organization
+  - Drag and drop functionality
+
+- **User Interface**
+  - Dark/Light mode support
+  - Responsive design
+  - Smooth animations and transitions
+  - Modern and clean interface
+
+- **Search & Filter**
+  - Search tasks across all sections
+  - Filter by tags
+  - Quick access to important tasks
+
+## Tech Stack
+
+- **Frontend**
+  - React.js
+  - Framer Motion (Animations)
+  - Tailwind CSS (Styling)
+  - React Icons
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/memory-space-todo.git
+```
+
+2. Navigate to the project directory
+```bash
+cd memory-space-todo
+```
+
+3. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+4. Start the development server
+```bash
+npm start
+# or
+yarn start
+```
+
+The application will be available at `http://localhost:3000`
+
+## Project Structure
+
+```
+memory-space-todo/
+├── public/
+│   ├── memory-space.png
+│   └── index.html
+├── src/
+│   ├── components/
+│   │   ├── HomePage.jsx
+│   │   ├── Calendar.jsx
+│   │   ├── StickyWall.jsx
+│   │   └── SignIn.jsx
+│   ├── store/
+│   │   └── useStore.js
+│   ├── App.jsx
+│   └── main.jsx
+├── package.json
+└── README.md
+```
+
+## Features in Detail
+
+### Task Management
+- Create tasks with titles, descriptions, and due dates
+- Organize tasks into Today, Tomorrow, and This Week sections
+- Add tags for better categorization
+- Create subtasks for complex tasks
+- Mark tasks as complete with a single click
+
+### Calendar
+- View tasks in day, week, or month format
+- Add events with custom colors
+- Drag and drop events to reschedule
+- Visual representation of task distribution
+
+### Sticky Wall
+- Create color-coded sticky notes
+- Organize notes by dragging
+- Add rich text content
+- Quick access to important notes
+
+### User Experience
+- Smooth animations using Framer Motion
+- Dark/Light mode toggle
+- Responsive design for all screen sizes
+- Intuitive navigation and organization
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- React team for the amazing framework
+- Framer Motion for smooth animations
+- Tailwind CSS for utility-first styling
+- All contributors and users of the application
+
+## Contact
+
+Project Link: [https://github.com/JoelPBaby/croohmapp-work] 
+Deployment Link: https://todoapp-taupe-psi.vercel.app/
+
+Author: Joel P. Baby
+Email: [joelpbaby2025@gmail.com](mailto:joelpbaby2025@gmail.com)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
