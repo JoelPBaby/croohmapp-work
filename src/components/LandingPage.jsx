@@ -64,15 +64,38 @@ const LandingPage = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
             whileHover={{ 
-              scale: 1.05, 
-              boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
-              backgroundColor: "#FFC700"
+              scale: 1.02,
+              boxShadow: "0 15px 30px rgba(255, 215, 0, 0.3)",
+              backgroundColor: "#FFD700",
+              transition: {
+                duration: 0.15,
+                ease: "easeOut"
+              }
             }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ 
+              scale: 0.98,
+              boxShadow: "0 5px 15px rgba(255, 215, 0, 0.2)",
+              transition: {
+                duration: 0.1,
+                ease: "easeOut"
+              }
+            }}
             onClick={handleGetStarted}
-            className="bg-[#FFD700] text-[#111] border-none py-4 px-8 rounded-lg text-base font-medium cursor-pointer transition-all duration-300 w-[calc(100%-2rem)] mx-4 mb-4"
+            className="bg-[#FFD700] text-[#111] border-none py-4 px-8 rounded-lg text-base font-medium cursor-pointer transition-all duration-150 w-[calc(100%-2rem)] mx-4 mb-4 relative overflow-hidden group"
           >
-            Get Started
+            <motion.span
+              className="relative z-10"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.15 }}
+            >
+              Get Started
+            </motion.span>
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FFC700] opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+              initial={{ x: "-100%" }}
+              whileHover={{ x: "0%" }}
+              transition={{ duration: 0.15 }}
+            />
           </motion.button>
           <motion.p 
             initial={{ y: 20, opacity: 0 }}

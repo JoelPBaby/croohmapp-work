@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const SignIn = () => {
@@ -7,6 +7,7 @@ const SignIn = () => {
     email: '',
     password: ''
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -17,7 +18,11 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle sign in logic here
+    // For demo purposes, we'll just check if both fields are filled
+    if (formData.email && formData.password) {
+      // In a real app, you would validate credentials here
+      navigate('/home');
+    }
   };
 
   return (
@@ -93,15 +98,38 @@ const SignIn = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
               whileHover={{ 
-                scale: 1.05, 
-                boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
-                backgroundColor: "#FFC700"
+                scale: 1.02,
+                boxShadow: "0 15px 30px rgba(255, 215, 0, 0.3)",
+                backgroundColor: "#FFD700",
+                transition: {
+                  duration: 0.15,
+                  ease: "easeOut"
+                }
               }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ 
+                scale: 0.98,
+                boxShadow: "0 5px 15px rgba(255, 215, 0, 0.2)",
+                transition: {
+                  duration: 0.1,
+                  ease: "easeOut"
+                }
+              }}
               type="submit"
-              className="w-[80%] ml-8 bg-[#FFD700] text-[#111] py-4 px-8 rounded-lg text-base font-medium cursor-pointer transition-all duration-300"
+              className="w-[80%] ml-8 bg-[#FFD700] text-[#111] py-4 px-8 rounded-lg text-base font-medium cursor-pointer transition-all duration-150 relative overflow-hidden group"
             >
-              Sign In
+              <motion.span
+                className="relative z-10"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.15 }}
+              >
+                Sign In
+              </motion.span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-[#FFD700] to-[#FFC700] opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "0%" }}
+                transition={{ duration: 0.15 }}
+              />
             </motion.button>
 
             {/* Or Section */}
@@ -124,18 +152,72 @@ const SignIn = () => {
               className="flex gap-4 w-[80%] ml-8"
             >
               <motion.button 
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
-                whileTap={{ scale: 0.95 }}
-                className="flex-1 bg-[#ebebeb] text-[#111] py-4 px-8 rounded-lg text-base font-bold cursor-pointer hover:bg-[#e0e0e0] transition-all duration-300"
+                whileHover={{ 
+                  scale: 1.02,
+                  boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                  backgroundColor: "#f5f5f5",
+                  transition: {
+                    duration: 0.15,
+                    ease: "easeOut"
+                  }
+                }}
+                whileTap={{ 
+                  scale: 0.98,
+                  boxShadow: "0 5px 15px rgba(0, 0, 0, 0.05)",
+                  transition: {
+                    duration: 0.1,
+                    ease: "easeOut"
+                  }
+                }}
+                className="flex-1 bg-[#ebebeb] text-[#111] py-4 px-8 rounded-lg text-base font-bold cursor-pointer transition-all duration-150 relative overflow-hidden group"
               >
-                Google
+                <motion.span
+                  className="relative z-10"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  Google
+                </motion.span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-[#ebebeb] to-[#e0e0e0] opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: "0%" }}
+                  transition={{ duration: 0.15 }}
+                />
               </motion.button>
               <motion.button 
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
-                whileTap={{ scale: 0.95 }}
-                className="flex-1 bg-[#ebebeb] text-[#111] py-4 px-8 rounded-lg text-base font-bold cursor-pointer hover:bg-[#e0e0e0] transition-all duration-300"
+                whileHover={{ 
+                  scale: 1.02,
+                  boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)",
+                  backgroundColor: "#f5f5f5",
+                  transition: {
+                    duration: 0.15,
+                    ease: "easeOut"
+                  }
+                }}
+                whileTap={{ 
+                  scale: 0.98,
+                  boxShadow: "0 5px 15px rgba(0, 0, 0, 0.05)",
+                  transition: {
+                    duration: 0.1,
+                    ease: "easeOut"
+                  }
+                }}
+                className="flex-1 bg-[#ebebeb] text-[#111] py-4 px-8 rounded-lg text-base font-bold cursor-pointer transition-all duration-150 relative overflow-hidden group"
               >
-                Facebook
+                <motion.span
+                  className="relative z-10"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  Facebook
+                </motion.span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-[#ebebeb] to-[#e0e0e0] opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: "0%" }}
+                  transition={{ duration: 0.15 }}
+                />
               </motion.button>
             </motion.div>
           </form>
