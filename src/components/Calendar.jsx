@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiChevronLeft, FiChevronRight, FiPlus, FiX } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiPlus, FiX, FiEdit2, FiTrash2 } from 'react-icons/fi';
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -37,6 +37,8 @@ const Calendar = () => {
       color: 'bg-pink-100'
     }
   ]);
+  const [showEditEvent, setShowEditEvent] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   const colors = [
     'bg-blue-100',
@@ -199,6 +201,37 @@ const Calendar = () => {
     }
     
     return days;
+  };
+
+  const handleEventClick = (event, e) => {
+    e.stopPropagation();
+    setSelectedEvent(event);
+    setShowEditEvent(true);
+  };
+
+  const handleUpdateEvent = (e) => {
+    e.preventDefault();
+    if (!selectedEvent.title.trim() || !selectedEvent.start || !selectedEvent.end) return;
+
+    setEvents(events.map(event => 
+      event.id === selectedEvent.id ? selectedEvent : event
+    ));
+    setShowEditEvent(false);
+    setSelectedEvent(null);
+  };
+
+  const handleDeleteEvent = () => {
+    setEvents(events.filter(event => event.id !== selectedEvent.id));
+    setShowEditEvent(false);
+    setSelectedEvent(null);
+  };
+
+  const isEventInTimeSlot = (event, timeSlot) => {
+    const eventStart = event.start.getHours();
+    const eventEnd = event.end.getHours();
+    const slotHour = timeSlot.getHours();
+    
+    return slotHour >= eventStart && slotHour < eventEnd;
   };
 
   return (
@@ -367,6 +400,133 @@ const Calendar = () => {
           </div>
         )}
 
+        {/* Edit Event Modal */}
+        {showEditEvent && selectedEvent && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Edit Event</h2>
+                <button
+                  onClick={() => {
+                    setShowEditEvent(false);
+                    setSelectedEvent(null);
+                  }}
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  <FiX size={20} />
+                </button>
+              </div>
+
+              <form onSubmit={handleUpdateEvent} className="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    value={selectedEvent.title}
+                    onChange={(e) => setSelectedEvent({ ...selectedEvent, title: e.target.value })}
+                    placeholder="Event Title"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ffd43b] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <textarea
+                    value={selectedEvent.description || ''}
+                    onChange={(e) => setSelectedEvent({ ...selectedEvent, description: e.target.value })}
+                    placeholder="Event Description"
+                    rows={3}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ffd43b] bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      Start Time
+                    </label>
+                    <input
+                      type="datetime-local"
+                      value={selectedEvent.start.toISOString().slice(0, 16)}
+                      onChange={(e) => setSelectedEvent({ 
+                        ...selectedEvent, 
+                        start: new Date(e.target.value)
+                      })}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ffd43b] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      End Time
+                    </label>
+                    <input
+                      type="datetime-local"
+                      value={selectedEvent.end.toISOString().slice(0, 16)}
+                      onChange={(e) => setSelectedEvent({ 
+                        ...selectedEvent, 
+                        end: new Date(e.target.value)
+                      })}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ffd43b] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Event Color
+                  </label>
+                  <div className="flex gap-2">
+                    {colors.map((color) => (
+                      <button
+                        key={color}
+                        type="button"
+                        onClick={() => setSelectedEvent({ ...selectedEvent, color })}
+                        className={`w-8 h-8 rounded-full ${color} ${
+                          selectedEvent.color === color ? 'ring-2 ring-[#ffd43b]' : ''
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex justify-between gap-3 mt-6">
+                  <button
+                    type="button"
+                    onClick={handleDeleteEvent}
+                    className="px-4 py-2 text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 flex items-center gap-2"
+                  >
+                    <FiTrash2 size={16} />
+                    <span>Delete</span>
+                  </button>
+                  <div className="flex gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowEditEvent(false);
+                        setSelectedEvent(null);
+                      }}
+                      className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150"
+                    >
+                      Update Event
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+
         {/* View Toggle */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
@@ -423,7 +583,9 @@ const Calendar = () => {
                   const currentTime = new Date(currentDate);
                   currentTime.setHours(index);
                   currentTime.setMinutes(0);
-                  const dayEvents = getDayEvents(currentTime);
+                  const dayEvents = getDayEvents(currentTime).filter(event => 
+                    isEventInTimeSlot(event, currentTime)
+                  );
 
                   return (
                     <div 
@@ -438,11 +600,22 @@ const Calendar = () => {
                         {dayEvents.map(event => (
                           <div
                             key={event.id}
-                            className={`${event.color} dark:bg-opacity-70 p-3 rounded-lg mb-2 shadow-sm hover:shadow-md transition-shadow`}
+                            onClick={(e) => handleEventClick(event, e)}
+                            className={`${event.color} dark:bg-opacity-70 p-3 rounded-lg mb-2 shadow-sm hover:shadow-md transition-shadow cursor-pointer group`}
                           >
-                            <h3 className="font-bold text-gray-800 dark:text-gray-900 mb-1">
-                              {event.title}
-                            </h3>
+                            <div className="flex justify-between items-start">
+                              <h3 className="font-bold text-gray-800 dark:text-gray-900 mb-1">
+                                {event.title}
+                              </h3>
+                              <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+                                <button className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                                  <FiEdit2 size={14} className="text-gray-600 dark:text-gray-800" />
+                                </button>
+                                <button className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                                  <FiTrash2 size={14} className="text-gray-600 dark:text-gray-800" />
+                                </button>
+                              </div>
+                            </div>
                             {event.description && (
                               <p className="text-sm text-gray-600 dark:text-gray-700 mb-2">
                                 {event.description}
