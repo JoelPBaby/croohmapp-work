@@ -313,6 +313,20 @@ const HomePage = () => {
     return todos.filter(todo => todo.list === list && !todo.completed).length;
   };
 
+  // Update the section change handlers
+  const handleSectionChange = (section) => {
+    setActiveSection(section);
+    setShowEditPanel(false);
+    setSelectedTask(null);
+  };
+
+  // Update the list change handlers
+  const handleListChange = (list) => {
+    setActiveList(list);
+    setShowEditPanel(false);
+    setSelectedTask(null);
+  };
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -373,7 +387,7 @@ const HomePage = () => {
               <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">TASKS</h3>
               <div className="space-y-1">
                 <button 
-                  onClick={() => setActiveSection('upcoming')}
+                  onClick={() => handleSectionChange('upcoming')}
                   className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                     activeSection === 'upcoming' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
@@ -387,7 +401,7 @@ const HomePage = () => {
                   <span className="text-sm text-gray-400 dark:text-gray-500">{incompleteTodosCount}</span>
                 </button>
                 <button 
-                  onClick={() => setActiveSection('today')}
+                  onClick={() => handleSectionChange('today')}
                   className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                     activeSection === 'today' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
@@ -401,7 +415,7 @@ const HomePage = () => {
                   <span className="text-sm text-gray-400 dark:text-gray-500">{filteredTodos.length}</span>
                 </button>
                 <button 
-                  onClick={() => setActiveSection('calendar')}
+                  onClick={() => handleSectionChange('calendar')}
                   className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                     activeSection === 'calendar' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
@@ -414,7 +428,7 @@ const HomePage = () => {
                   </div>
                 </button>
                 <button 
-                  onClick={() => setActiveSection('sticky-wall')}
+                  onClick={() => handleSectionChange('sticky-wall')}
                   className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                     activeSection === 'sticky-wall' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
@@ -435,7 +449,7 @@ const HomePage = () => {
               <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">LISTS</h3>
               <div className="space-y-1">
                 <button 
-                  onClick={() => setActiveList('Personal')}
+                  onClick={() => handleListChange('Personal')}
                   className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                     activeList === 'Personal' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
@@ -449,7 +463,7 @@ const HomePage = () => {
                   <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('Personal')}</span>
                 </button>
                 <button 
-                  onClick={() => setActiveList('Work')}
+                  onClick={() => handleListChange('Work')}
                   className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                     activeList === 'Work' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
@@ -463,7 +477,7 @@ const HomePage = () => {
                   <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('Work')}</span>
                 </button>
                 <button 
-                  onClick={() => setActiveList('List 1')}
+                  onClick={() => handleListChange('List 1')}
                   className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
                     activeList === 'List 1' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
