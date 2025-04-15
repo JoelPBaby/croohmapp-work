@@ -12,7 +12,9 @@ const Calendar = () => {
     description: '',
     start: '',
     end: '',
-    color: 'bg-blue-100'
+    color: 'bg-blue-100',
+    dueDate: '',
+    reminders: []
   });
   const [events, setEvents] = useState([
     {
@@ -49,6 +51,15 @@ const Calendar = () => {
     'bg-orange-100'
   ];
 
+  const reminderOptions = [
+    { label: '5 minutes before', value: 5 },
+    { label: '10 minutes before', value: 10 },
+    { label: '15 minutes before', value: 15 },
+    { label: '30 minutes before', value: 30 },
+    { label: '1 hour before', value: 60 },
+    { label: '1 day before', value: 1440 }
+  ];
+
   const handleAddEvent = (e) => {
     e.preventDefault();
     if (!newEvent.title.trim() || !newEvent.start || !newEvent.end) return;
@@ -59,7 +70,9 @@ const Calendar = () => {
       description: newEvent.description,
       start: new Date(newEvent.start),
       end: new Date(newEvent.end),
-      color: newEvent.color
+      color: newEvent.color,
+      dueDate: newEvent.dueDate ? new Date(newEvent.dueDate) : null,
+      reminders: newEvent.reminders
     };
 
     setEvents([...events, event]);
@@ -68,7 +81,9 @@ const Calendar = () => {
       description: '',
       start: '',
       end: '',
-      color: 'bg-blue-100'
+      color: 'bg-blue-100',
+      dueDate: '',
+      reminders: []
     });
     setShowAddEvent(false);
     setSelectedTimeSlot(null);
@@ -234,25 +249,43 @@ const Calendar = () => {
     return slotHour >= eventStart && slotHour < eventEnd;
   };
 
+  const handleReminderToggle = (minutes) => {
+    setNewEvent(prev => {
+      const newReminders = prev.reminders.includes(minutes)
+        ? prev.reminders.filter(r => r !== minutes)
+        : [...prev.reminders, minutes];
+      return { ...prev, reminders: newReminders };
+    });
+  };
+
+  const handleEditReminderToggle = (minutes) => {
+    setSelectedEvent(prev => {
+      const newReminders = prev.reminders.includes(minutes)
+        ? prev.reminders.filter(r => r !== minutes)
+        : [...prev.reminders, minutes];
+      return { ...prev, reminders: newReminders };
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-white dark:bg-gray-900 p-4">
+      <div className="max-w-5xl mx-auto">
         {/* Custom Scrollbar Styles */}
         <style jsx global>{`
           /* Custom Scrollbar Styles */
           ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
           }
           
           ::-webkit-scrollbar-track {
             background: #f4f4f4;
-            border-radius: 4px;
+            border-radius: 3px;
           }
           
           ::-webkit-scrollbar-thumb {
             background: #ffd43b;
-            border-radius: 4px;
+            border-radius: 3px;
             transition: all 0.3s ease;
           }
           
@@ -274,9 +307,9 @@ const Calendar = () => {
         `}</style>
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-6">
-            <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-4">
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
               {getHeaderText()}
             </h1>
           </div>
@@ -285,9 +318,9 @@ const Calendar = () => {
               setSelectedTimeSlot(new Date());
               setShowAddEvent(true);
             }}
-            className="flex items-center gap-2 px-4 py-2 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150"
+            className="flex items-center gap-2 px-3 py-1.5 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150 text-sm"
           >
-            <FiPlus size={20} />
+            <FiPlus size={16} />
             <span className="font-bold">Add Event</span>
           </button>
         </div>
@@ -376,6 +409,46 @@ const Calendar = () => {
                           newEvent.color === color ? 'ring-2 ring-[#ffd43b]' : ''
                         }`}
                       />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Due Date
+                  </label>
+                  <input
+                    type="date"
+                    value={newEvent.dueDate}
+                    onChange={(e) => setNewEvent({ ...newEvent, dueDate: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ffd43b] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Reminders
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {reminderOptions.map((option) => (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => handleReminderToggle(option.value)}
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${
+                          newEvent.reminders.includes(option.value)
+                            ? 'border-[#ffd43b] bg-[#ffd43b] bg-opacity-10'
+                            : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={newEvent.reminders.includes(option.value)}
+                          onChange={() => {}}
+                          className="w-4 h-4 text-[#ffd43b] focus:ring-[#ffd43b] border-gray-300 rounded"
+                        />
+                        <span className="text-sm text-gray-700 dark:text-gray-300">{option.label}</span>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -496,6 +569,49 @@ const Calendar = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Due Date
+                  </label>
+                  <input
+                    type="date"
+                    value={selectedEvent.dueDate ? selectedEvent.dueDate.toISOString().split('T')[0] : ''}
+                    onChange={(e) => setSelectedEvent({ 
+                      ...selectedEvent, 
+                      dueDate: e.target.value ? new Date(e.target.value) : null
+                    })}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#ffd43b] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Reminders
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {reminderOptions.map((option) => (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => handleEditReminderToggle(option.value)}
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${
+                          selectedEvent.reminders.includes(option.value)
+                            ? 'border-[#ffd43b] bg-[#ffd43b] bg-opacity-10'
+                            : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedEvent.reminders.includes(option.value)}
+                          onChange={() => {}}
+                          className="w-4 h-4 text-[#ffd43b] focus:ring-[#ffd43b] border-gray-300 rounded"
+                        />
+                        <span className="text-sm text-gray-700 dark:text-gray-300">{option.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     List
                   </label>
                   <select
@@ -543,13 +659,13 @@ const Calendar = () => {
         )}
 
         {/* View Toggle */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5">
             {['Day', 'Week', 'Month'].map((viewOption) => (
               <button
                 key={viewOption}
                 onClick={() => setView(viewOption.toLowerCase())}
-                className={`relative px-6 py-2 text-sm font-bold rounded-md transition-all duration-200 ${
+                className={`relative px-4 py-1 text-xs font-bold rounded-md transition-all duration-200 ${
                   view === viewOption.toLowerCase()
                     ? 'text-gray-900 dark:text-white'
                     : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
@@ -569,15 +685,15 @@ const Calendar = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrevious}
-              className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="p-1.5 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
             >
-              <FiChevronLeft size={20} />
+              <FiChevronLeft size={16} />
             </button>
             <button
               onClick={handleNext}
-              className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="p-1.5 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
             >
-              <FiChevronRight size={20} />
+              <FiChevronRight size={16} />
             </button>
           </div>
         </div>
@@ -593,7 +709,7 @@ const Calendar = () => {
             className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden"
           >
             {view === 'day' && (
-              <div className="divide-y divide-gray-200 dark:divide-gray-700 max-h-[calc(100vh-200px)] overflow-y-auto">
+              <div className="divide-y divide-gray-200 dark:divide-gray-700 max-h-[calc(100vh-180px)] overflow-y-auto">
                 {timeSlots.map((time, index) => {
                   const currentTime = new Date(currentDate);
                   currentTime.setHours(index);
@@ -608,37 +724,48 @@ const Calendar = () => {
                       className="flex items-start hover:bg-gray-50 dark:hover:bg-gray-750 cursor-pointer transition-colors"
                       onClick={() => handleTimeSlotClick(currentTime)}
                     >
-                      <div className="w-20 py-4 px-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+                      <div className="w-16 py-2 px-2 text-xs font-medium text-gray-500 dark:text-gray-400">
                         {time}
                       </div>
-                      <div className="flex-1 py-4 px-4 min-h-[60px]">
+                      <div className="flex-1 py-2 px-2 min-h-[50px]">
                         {dayEvents.map(event => (
                           <div
                             key={event.id}
                             onClick={(e) => handleEventClick(event, e)}
-                            className={`${event.color} dark:bg-opacity-70 p-3 rounded-lg mb-2 shadow-sm hover:shadow-md transition-shadow cursor-pointer group`}
+                            className={`${event.color} dark:bg-opacity-70 p-2 rounded-lg mb-1 shadow-sm hover:shadow-md transition-shadow cursor-pointer group`}
                           >
                             <div className="flex justify-between items-start">
-                              <h3 className="font-bold text-gray-800 dark:text-gray-900 mb-1">
-                                {event.title}
-                              </h3>
-                              <div className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
-                                <button className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                                  <FiEdit2 size={14} className="text-gray-600 dark:text-gray-800" />
+                              <div className="flex flex-col gap-1">
+                                <span className="text-sm font-medium text-gray-900 dark:text-white">{event.title}</span>
+                                <span className="text-xs text-gray-600 dark:text-gray-300">{formatTime(event.start)} - {formatTime(event.end)}</span>
+                                {event.dueDate && (
+                                  <span className="text-xs text-gray-600 dark:text-gray-300">Due: {event.dueDate.toLocaleDateString()}</span>
+                                )}
+                                {event.reminders && event.reminders.length > 0 && (
+                                  <span className="text-xs text-gray-700 dark:text-gray-300">Reminders: {event.reminders.join(', ')}</span>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleEventClick(event, e);
+                                  }}
+                                  className="p-1 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                                >
+                                  <FiEdit2 size={14} />
                                 </button>
-                                <button className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                                  <FiTrash2 size={14} className="text-gray-600 dark:text-gray-800" />
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteEvent();
+                                  }}
+                                  className="p-1 text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                                >
+                                  <FiTrash2 size={14} />
                                 </button>
                               </div>
                             </div>
-                            {event.description && (
-                              <p className="text-sm text-gray-600 dark:text-gray-700 mb-2">
-                                {event.description}
-                              </p>
-                            )}
-                            <p className="text-sm text-gray-600 dark:text-gray-700 font-medium">
-                              {formatTime(event.start)} - {formatTime(event.end)}
-                            </p>
                           </div>
                         ))}
                       </div>
@@ -652,26 +779,30 @@ const Calendar = () => {
               <div className="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-700">
                 {getWeekDays().map((day, index) => (
                   <div key={index} className="bg-white dark:bg-gray-800">
-                    <div className="sticky top-0 z-10 bg-white dark:bg-gray-800 p-2 border-b border-gray-200 dark:border-gray-700">
-                      <div className="text-sm font-bold text-gray-500 dark:text-gray-400">
+                    <div className="sticky top-0 z-10 bg-white dark:bg-gray-800 p-1.5 border-b border-gray-200 dark:border-gray-700">
+                      <div className="text-xs font-bold text-gray-500 dark:text-gray-400">
                         {day.toLocaleDateString('en-US', { weekday: 'short' })}
                       </div>
-                      <div className="text-lg font-bold text-gray-800 dark:text-gray-200">
+                      <div className="text-sm font-bold text-gray-800 dark:text-gray-200">
                         {day.getDate()}
                       </div>
                     </div>
-                    <div className="max-h-[calc(100vh-280px)] overflow-y-auto p-2">
+                    <div className="max-h-[calc(100vh-180px)] overflow-y-auto p-1.5">
                       {getDayEvents(day).map(event => (
                         <div
                           key={event.id}
-                          className={`${event.color} dark:bg-opacity-70 p-2 rounded-lg mb-2 shadow-sm hover:shadow-md transition-shadow`}
+                          className={`${event.color} dark:bg-opacity-70 p-1.5 rounded-lg mb-1 shadow-sm hover:shadow-md transition-shadow`}
                         >
-                          <h3 className="font-bold text-gray-800 dark:text-gray-900 text-sm">
-                            {event.title}
-                          </h3>
-                          <p className="text-xs text-gray-600 dark:text-gray-700 font-medium">
-                            {formatTime(event.start)}
-                          </p>
+                          <div className="flex flex-col gap-1">
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">{event.title}</span>
+                            <span className="text-xs text-gray-600 dark:text-gray-300">{formatTime(event.start)} - {formatTime(event.end)}</span>
+                            {event.dueDate && (
+                              <span className="text-xs text-gray-600 dark:text-gray-300">Due: {event.dueDate.toLocaleDateString()}</span>
+                            )}
+                            {event.reminders && event.reminders.length > 0 && (
+                              <span className="text-xs text-gray-700 dark:text-gray-300">Reminders: {event.reminders.join(', ')}</span>
+                            )}
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -684,40 +815,44 @@ const Calendar = () => {
               <div className="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-700">
                 <div className="col-span-7 grid grid-cols-7 gap-px">
                   {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                    <div key={day} className="bg-white dark:bg-gray-800 p-2 text-center sticky top-0 z-10">
-                      <span className="text-sm font-bold text-gray-500 dark:text-gray-400">
+                    <div key={day} className="bg-white dark:bg-gray-800 p-1.5 text-center sticky top-0 z-10">
+                      <span className="text-xs font-bold text-gray-500 dark:text-gray-400">
                         {day}
                       </span>
                     </div>
                   ))}
                 </div>
-                <div className="col-span-7 grid grid-cols-7 gap-px max-h-[calc(100vh-280px)] overflow-y-auto">
+                <div className="col-span-7 grid grid-cols-7 gap-px max-h-[calc(100vh-180px)] overflow-y-auto">
                   {getMonthDays().map((day, index) => (
                     <div 
                       key={index}
-                      className={`bg-white dark:bg-gray-800 min-h-[120px] p-2 ${
+                      className={`bg-white dark:bg-gray-800 min-h-[100px] p-1.5 ${
                         day.getMonth() === currentDate.getMonth()
                           ? 'opacity-100'
                           : 'opacity-50'
                       }`}
                     >
-                      <div className="text-right mb-2">
-                        <span className="text-sm font-bold text-gray-800 dark:text-gray-200">
+                      <div className="text-right mb-1">
+                        <span className="text-xs font-bold text-gray-800 dark:text-gray-200">
                           {day.getDate()}
                         </span>
                       </div>
-                      <div className="space-y-1 overflow-y-auto">
+                      <div className="space-y-0.5 overflow-y-auto">
                         {getDayEvents(day).map(event => (
                           <div
                             key={event.id}
-                            className={`${event.color} dark:bg-opacity-70 p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow`}
+                            className={`${event.color} dark:bg-opacity-70 p-1 rounded-lg shadow-sm hover:shadow-md transition-shadow`}
                           >
-                            <span className="font-bold text-gray-800 dark:text-gray-900 text-xs block truncate">
-                              {event.title}
-                            </span>
-                            <span className="text-xs text-gray-600 dark:text-gray-700">
-                              {formatTime(event.start)}
-                            </span>
+                            <div className="flex flex-col gap-1">
+                              <span className="text-sm font-medium text-gray-900 dark:text-white">{event.title}</span>
+                              <span className="text-xs text-gray-600 dark:text-gray-300">{formatTime(event.start)} - {formatTime(event.end)}</span>
+                              {event.dueDate && (
+                                <span className="text-xs text-gray-600 dark:text-gray-300">Due: {event.dueDate.toLocaleDateString()}</span>
+                              )}
+                              {event.reminders && event.reminders.length > 0 && (
+                                <span className="text-xs text-gray-700 dark:text-gray-300">Reminders: {event.reminders.join(', ')}</span>
+                              )}
+                            </div>
                           </div>
                         ))}
                       </div>

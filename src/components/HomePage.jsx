@@ -354,159 +354,159 @@ const HomePage = () => {
         initial={{ x: -400 }}
         animate={{ x: isMenuOpen ? 0 : -400 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className={`fixed h-[calc(100vh-40px)] bg-[#f4f4f4] dark:bg-gray-800 w-[400px] py-6 transition-all duration-300 z-40 top-5 left-5 rounded-[20px] flex flex-col`}
+        className={`fixed h-[calc(100vh-40px)] bg-[#f4f4f4] dark:bg-gray-800 w-[300px] py-4 transition-all duration-300 z-40 top-5 left-5 rounded-[20px] flex flex-col`}
       >
-        <div className="flex flex-col h-full px-6">
+        <div className="flex flex-col h-full px-4">
           {/* Header - Fixed */}
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl text-gray-700 dark:text-white font-medium">Menu</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg text-gray-700 dark:text-white font-medium">Menu</h2>
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              className="p-1.5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors"
             >
-              <FiMenu size={20} />
+              <FiMenu size={16} />
             </button>
           </div>
 
           {/* Scrollable Content */}
           <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-yellow-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
             {/* Search */}
-            <div className="relative mb-8">
-              <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+            <div className="relative mb-6">
+              <FiSearch className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" size={14} />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search"
-                className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#f4f4f4] dark:bg-gray-900 border-none text-gray-600 dark:text-gray-200 text-sm focus:ring-0 focus:border-gray-400 dark:focus:border-gray-600"
+                className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#f4f4f4] dark:bg-gray-900 border-none text-gray-600 dark:text-gray-200 text-sm focus:ring-0 focus:border-gray-400 dark:focus:border-gray-600"
               />
             </div>
 
             {/* Tasks Section */}
-            <div className="mb-8">
-              <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">TASKS</h3>
-              <div className="space-y-1">
+            <div className="mb-6">
+              <h3 className="text-[10px] font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-3 px-2">TASKS</h3>
+              <div className="space-y-0.5">
                 <button 
                   onClick={() => handleSectionChange('upcoming')}
-                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                  className={`w-full flex items-center justify-between px-3 py-1.5 text-gray-700 dark:text-gray-200 ${
                     activeSection === 'upcoming' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
                       : 'hover:bg-white dark:hover:bg-gray-700'
                   } rounded-lg group transition-colors`}
                 >
-                  <div className="flex items-center gap-3">
-                    <FiChevronsRight className="text-gray-400 dark:text-gray-500" />
-                    <span className="font-medium">Upcoming</span>
+                  <div className="flex items-center gap-2">
+                    <FiChevronsRight className="text-gray-400 dark:text-gray-500" size={14} />
+                    <span className="text-sm font-medium">Upcoming</span>
                   </div>
-                  <span className="text-sm text-gray-400 dark:text-gray-500">{incompleteTodosCount}</span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500">{incompleteTodosCount}</span>
                 </button>
                 <button 
                   onClick={() => handleSectionChange('today')}
-                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                  className={`w-full flex items-center justify-between px-3 py-1.5 text-gray-700 dark:text-gray-200 ${
                     activeSection === 'today' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
                       : 'hover:bg-white dark:hover:bg-gray-700'
                   } rounded-lg group`}
                 >
-                  <div className="flex items-center gap-3">
-                    <BsListTask className="text-gray-400 dark:text-gray-500" />
-                    <span className="font-medium">Today</span>
+                  <div className="flex items-center gap-2">
+                    <BsListTask className="text-gray-400 dark:text-gray-500" size={14} />
+                    <span className="text-sm font-medium">Today</span>
                   </div>
-                  <span className="text-sm text-gray-400 dark:text-gray-500">{filteredTodos.length}</span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500">{filteredTodos.length}</span>
                 </button>
                 <button 
                   onClick={() => handleSectionChange('calendar')}
-                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                  className={`w-full flex items-center justify-between px-3 py-1.5 text-gray-700 dark:text-gray-200 ${
                     activeSection === 'calendar' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
                       : 'hover:bg-white dark:hover:bg-gray-700'
                   } rounded-lg group transition-colors`}
                 >
-                  <div className="flex items-center gap-3">
-                    <BsCalendarEvent className="text-gray-400 dark:text-gray-500" />
-                    <span className="font-medium">Calendar</span>
+                  <div className="flex items-center gap-2">
+                    <BsCalendarEvent className="text-gray-400 dark:text-gray-500" size={14} />
+                    <span className="text-sm font-medium">Calendar</span>
                   </div>
                 </button>
                 <button 
                   onClick={() => handleSectionChange('sticky-wall')}
-                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                  className={`w-full flex items-center justify-between px-3 py-1.5 text-gray-700 dark:text-gray-200 ${
                     activeSection === 'sticky-wall' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white' 
                       : 'hover:bg-white dark:hover:bg-gray-700'
                   } rounded-lg group transition-colors`}
                 >
-                  <div className="flex items-center gap-3">
-                    <BsStickyFill className="text-gray-400 dark:text-gray-500" />
-                    <span className="font-medium">Sticky Wall</span>
+                  <div className="flex items-center gap-2">
+                    <BsStickyFill className="text-gray-400 dark:text-gray-500" size={14} />
+                    <span className="text-sm font-medium">Sticky Wall</span>
                   </div>
-                  <span className="text-sm text-gray-400 dark:text-gray-500">{stickyNotes.length}</span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500">{stickyNotes.length}</span>
                 </button>
               </div>
             </div>
 
             {/* Lists Section */}
-            <div className="mb-8">
-              <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">LISTS</h3>
-              <div className="space-y-1">
+            <div className="mb-6">
+              <h3 className="text-[10px] font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-3 px-2">LISTS</h3>
+              <div className="space-y-0.5">
                 <button 
                   onClick={() => handleListChange('Personal')}
-                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                  className={`w-full flex items-center justify-between px-3 py-1.5 text-gray-700 dark:text-gray-200 ${
                     activeList === 'Personal' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
                       : 'hover:bg-white dark:hover:bg-gray-700'
                   } rounded-lg transition-colors`}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                    <span className="font-medium">Personal</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+                    <span className="text-sm font-medium">Personal</span>
                   </div>
-                  <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('Personal')}</span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500">{getTodoCountByList('Personal')}</span>
                 </button>
                 <button 
                   onClick={() => handleListChange('Work')}
-                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                  className={`w-full flex items-center justify-between px-3 py-1.5 text-gray-700 dark:text-gray-200 ${
                     activeList === 'Work' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
                       : 'hover:bg-white dark:hover:bg-gray-700'
                   } rounded-lg transition-colors`}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-cyan-400"></div>
-                    <span className="font-medium">Work</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-cyan-400"></div>
+                    <span className="text-sm font-medium">Work</span>
                   </div>
-                  <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('Work')}</span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500">{getTodoCountByList('Work')}</span>
                 </button>
                 <button 
                   onClick={() => handleListChange('List 1')}
-                  className={`w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 ${
+                  className={`w-full flex items-center justify-between px-3 py-1.5 text-gray-700 dark:text-gray-200 ${
                     activeList === 'List 1' 
                       ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
                       : 'hover:bg-white dark:hover:bg-gray-700'
                   } rounded-lg transition-colors`}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                    <span className="font-medium">List 1</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+                    <span className="text-sm font-medium">List 1</span>
                   </div>
-                  <span className="text-sm text-gray-400 dark:text-gray-500">{getTodoCountByList('List 1')}</span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500">{getTodoCountByList('List 1')}</span>
                 </button>
-                <button className="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
-                  <div className="flex items-center gap-3">
-                    <FiPlus className="text-gray-400 dark:text-gray-500" />
-                    <span className="font-medium">Add New List</span>
+                <button className="w-full flex items-center justify-between px-3 py-1.5 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                  <div className="flex items-center gap-2">
+                    <FiPlus className="text-gray-400 dark:text-gray-500" size={14} />
+                    <span className="text-sm font-medium">Add New List</span>
                   </div>
                 </button>
               </div>
             </div>
 
             {/* Tags Section */}
-            <div className="mb-8">
-              <h3 className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-4 px-2">TAGS</h3>
-              <div className="flex flex-wrap gap-2 px-2">
-                <span className="px-3 py-1 bg-cyan-100 dark:bg-cyan-900 text-gray-700 dark:text-gray-200 rounded-full text-sm">Tag 1</span>
-                <span className="px-3 py-1 bg-pink-100 dark:bg-pink-900 text-gray-700 dark:text-gray-200 rounded-full text-sm">Tag 2</span>
-                <button className="px-3 py-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full text-sm flex items-center gap-1 transition-colors">
-                  <FiPlus size={14} />
+            <div className="mb-6">
+              <h3 className="text-[10px] font-semibold tracking-wider text-gray-500 dark:text-gray-400 mb-3 px-2">TAGS</h3>
+              <div className="flex flex-wrap gap-1.5 px-2">
+                <span className="px-2 py-0.5 bg-cyan-100 dark:bg-cyan-900 text-gray-700 dark:text-gray-200 rounded-full text-xs">Tag 1</span>
+                <span className="px-2 py-0.5 bg-pink-100 dark:bg-pink-900 text-gray-700 dark:text-gray-200 rounded-full text-xs">Tag 2</span>
+                <button className="px-2 py-0.5 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full text-xs flex items-center gap-1 transition-colors">
+                  <FiPlus size={12} />
                   <span>Add Tag</span>
                 </button>
               </div>
@@ -514,34 +514,34 @@ const HomePage = () => {
           </div>
 
           {/* Bottom Actions - Fixed */}
-          <div className="mt-auto space-y-1">
-            <button className="w-full flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-800 rounded-lg transition-colors">
-              <FiSettings className="text-gray-400 dark:text-gray-500" />
-              <span className="font-medium">Settings</span>
+          <div className="mt-auto space-y-0.5">
+            <button className="w-full flex items-center gap-2 px-3 py-1.5 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <FiSettings className="text-gray-400 dark:text-gray-500" size={14} />
+              <span className="text-sm font-medium">Settings</span>
             </button>
             
             {/* Dark Mode Toggle */}
-            <div className="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200">
-              <div className="flex items-center gap-3">
+            <div className="w-full flex items-center justify-between px-3 py-1.5 text-gray-700 dark:text-gray-200">
+              <div className="flex items-center gap-2">
                 <svg 
                   xmlns="http://www.w3.org/2000/svg" 
-                  className="h-5 w-5 text-gray-400 dark:text-gray-500" 
+                  className="h-4 w-4 text-gray-400 dark:text-gray-500" 
                   viewBox="0 0 20 20" 
                   fill="currentColor"
                 >
                   <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                 </svg>
-                <span className="font-medium">Dark Mode</span>
+                <span className="text-sm font-medium">Dark Mode</span>
               </div>
               <button
                 onClick={() => setIsDarkMode(!isDarkMode)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
+                className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors focus:outline-none ${
                   isDarkMode ? 'bg-gray-600' : 'bg-gray-200'
                 }`}
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    isDarkMode ? 'translate-x-6' : 'translate-x-1'
+                  className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${
+                    isDarkMode ? 'translate-x-5' : 'translate-x-1'
                   }`}
                 />
               </button>
@@ -549,17 +549,17 @@ const HomePage = () => {
 
             <button 
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-800 rounded-lg transition-colors"
+              className="w-full flex items-center gap-2 px-3 py-1.5 text-gray-700 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-800 rounded-lg transition-colors"
             >
-              <FiLogOut className="text-gray-400 dark:text-gray-500" />
-              <span className="font-medium">Sign out</span>
+              <FiLogOut className="text-gray-400 dark:text-gray-500" size={14} />
+              <span className="text-sm font-medium">Sign out</span>
             </button>
           </div>
         </div>
       </motion.div>
 
       {/* Main Content Section */}
-      <div className={`flex-1 transition-all duration-300 ${isMenuOpen ? 'ml-[400px]' : 'ml-0'} ${showEditPanel ? 'mr-[400px]' : 'mr-0'}`}>
+      <div className={`flex-1 transition-all duration-300 ${isMenuOpen ? 'ml-[300px]' : 'ml-0'} ${showEditPanel ? 'mr-[300px]' : 'mr-0'}`}>
         {activeSection === 'sticky-wall' ? (
           <StickyWall initialNotes={stickyNotes} onNotesChange={setStickyNotes} />
         ) : activeSection === 'calendar' ? (
@@ -600,17 +600,17 @@ const HomePage = () => {
                 background: #fcc419;
               }
             `}</style>
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-6">
-                <h1 className="text-6xl font-extrabold text-gray-800 dark:text-white">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-4">
+                <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
                   {activeSection === 'upcoming' ? 'Upcoming' : 'Today'}
                   {activeList !== 'Personal' && (
-                    <span className="text-3xl font-bold text-gray-400 dark:text-gray-300 ml-4">
+                    <span className="text-xl font-bold text-gray-400 dark:text-gray-300 ml-2">
                       • {activeList}
                     </span>
                   )}
                 </h1>
-                <span className="text-6xl font-bold text-gray-400 dark:text-gray-300">
+                <span className="text-2xl font-bold text-gray-400 dark:text-gray-300">
                   {filteredTodos.length}
                 </span>
               </div>
@@ -619,29 +619,29 @@ const HomePage = () => {
             {activeSection === 'today' ? (
               <>
                 {/* Add New Task Button and Form */}
-                <div className="mb-6">
+                <div className="mb-4">
                   {!showAddTask ? (
                     <button 
-                      className="flex items-center gap-3 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white group transition-colors duration-150"
+                      className="flex items-center gap-2 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white group transition-colors duration-150"
                       onClick={() => setShowAddTask(true)}
                     >
-                      <span className="text-2xl font-bold">+</span>
-                      <span className="text-base font-medium">Add New Task</span>
+                      <span className="text-xl font-bold">+</span>
+                      <span className="text-sm font-medium">Add New Task</span>
                     </button>
                   ) : (
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-[#f4f4f4] dark:bg-gray-700 rounded-lg p-4"
+                      className="bg-[#f4f4f4] dark:bg-gray-700 rounded-lg p-3"
                     >
-                      <form onSubmit={(e) => handleNewTaskSubmit(e, 'today')} className="space-y-4">
+                      <form onSubmit={(e) => handleNewTaskSubmit(e, 'today')} className="space-y-3">
                         <div>
                           <input
                             type="text"
                             value={newTaskData.todo}
                             onChange={(e) => setNewTaskData({...newTaskData, todo: e.target.value})}
                             placeholder="Task name"
-                            className="w-full py-2 px-3 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none"
+                            className="w-full py-1.5 px-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none text-sm"
                             autoFocus
                           />
                         </div>
@@ -651,16 +651,16 @@ const HomePage = () => {
                             value={newTaskData.description}
                             onChange={(e) => setNewTaskData({...newTaskData, description: e.target.value})}
                             placeholder="Description"
-                            className="w-full py-2 px-3 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none resize-none h-20"
+                            className="w-full py-1.5 px-2 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none resize-none h-16 text-sm"
                           />
                         </div>
 
-                        <div className="flex gap-4">
+                        <div className="flex gap-3">
                           <div className="flex-1">
                             <select
                               value={newTaskData.list}
                               onChange={(e) => setNewTaskData({...newTaskData, list: e.target.value})}
-                              className="w-full py-2 px-3 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none"
+                              className="w-full py-1.5 px-2 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none text-sm"
                             >
                               <option value="Personal">Personal</option>
                               <option value="Work">Work</option>
@@ -673,15 +673,15 @@ const HomePage = () => {
                               type="date"
                               value={newTaskData.dueDate}
                               onChange={(e) => setNewTaskData({...newTaskData, dueDate: e.target.value})}
-                              className="w-full py-2 px-3 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none"
+                              className="w-full py-1.5 px-2 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none text-sm"
                             />
                           </div>
                         </div>
 
-                        <div className="space-y-2">
-                          <div className="flex flex-wrap gap-2">
+                        <div className="space-y-1.5">
+                          <div className="flex flex-wrap gap-1.5">
                             {newTaskData.tags.map((tag, index) => (
-                              <span key={index} className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm flex items-center">
+                              <span key={index} className="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-xs flex items-center">
                                 {tag}
                                 <button
                                   type="button"
@@ -689,18 +689,18 @@ const HomePage = () => {
                                     ...newTaskData,
                                     tags: newTaskData.tags.filter((_, i) => i !== index)
                                   })}
-                                  className="ml-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                                  className="ml-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                                 >
                                   ×
                                 </button>
                               </span>
                             ))}
                           </div>
-                          <div className="flex gap-2">
+                          <div className="flex gap-1.5">
                             <input
                               type="text"
                               placeholder="Add tag"
-                              className="flex-1 py-1 px-3 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-full focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none text-sm"
+                              className="flex-1 py-1 px-2 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-full focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none text-xs"
                               onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                   e.preventDefault();
@@ -717,7 +717,7 @@ const HomePage = () => {
                           </div>
                         </div>
 
-                        <div className="flex justify-end gap-3">
+                        <div className="flex justify-end gap-2">
                           <button
                             type="button"
                             onClick={() => {
@@ -732,13 +732,13 @@ const HomePage = () => {
                                 section: 'today'
                               });
                             }}
-                            className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                            className="px-3 py-1.5 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 text-sm"
                           >
                             Cancel
                           </button>
                           <button
                             type="submit"
-                            className="px-4 py-2 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150"
+                            className="px-3 py-1.5 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150 text-sm"
                           >
                             Add Task
                           </button>
@@ -749,10 +749,10 @@ const HomePage = () => {
                 </div>
 
                 {/* Toggle Buttons */}
-                <div className="flex gap-4 mb-6">
+                <div className="flex gap-3 mb-4">
                   <button
                     onClick={() => setShowCompleted(false)}
-                    className={`px-4 py-2 rounded-lg transition-all duration-150 ${
+                    className={`px-3 py-1.5 rounded-lg transition-all duration-150 text-sm ${
                       !showCompleted 
                         ? 'bg-gray-800 dark:bg-gray-700 text-white' 
                         : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
@@ -762,7 +762,7 @@ const HomePage = () => {
                   </button>
                   <button
                     onClick={() => setShowCompleted(true)}
-                    className={`px-4 py-2 rounded-lg transition-all duration-150 ${
+                    className={`px-3 py-1.5 rounded-lg transition-all duration-150 text-sm ${
                       showCompleted 
                         ? 'bg-gray-800 dark:bg-gray-700 text-white' 
                         : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
@@ -776,7 +776,7 @@ const HomePage = () => {
                 <motion.div 
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  className="space-y-4"
+                  className="space-y-2"
                 >
                   {filteredTodos.map((todo) => (
                     <motion.div
@@ -785,35 +785,35 @@ const HomePage = () => {
                       animate={{ x: 0, opacity: 1 }}
                       className="group border-b border-gray-100 dark:border-gray-700 last:border-b-0"
                     >
-                      <div className="flex items-center justify-between py-4 px-4 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg">
-                        <div className="flex items-center gap-4 flex-1">
+                      <div className="flex items-center justify-between py-2 px-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg">
+                        <div className="flex items-center gap-3 flex-1">
                           <input
                             type="checkbox"
                             checked={todo.completed}
                             onChange={() => handleToggleTodo(todo.id)}
-                            className="w-5 h-5 rounded border-gray-300 text-gray-400 focus:ring-gray-400"
+                            className="w-4 h-4 rounded border-gray-300 text-gray-400 focus:ring-gray-400"
                           />
                           <div className="flex flex-col">
-                            <span className={`${todo.completed ? 'line-through text-gray-400 dark:text-gray-500' : 'text-gray-800 dark:text-gray-200'} font-semibold`}>
+                            <span className={`${todo.completed ? 'line-through text-gray-400 dark:text-gray-500' : 'text-gray-800 dark:text-gray-200'} text-sm font-medium`}>
                               {todo.todo}
                             </span>
                             {todo.description && (
-                              <span className="text-sm text-gray-500 dark:text-gray-400">
+                              <span className="text-xs text-gray-500 dark:text-gray-400">
                                 {todo.description}
                               </span>
                             )}
                           </div>
                         </div>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                           {todo.dueDate && (
-                            <span className="text-sm text-gray-500 dark:text-gray-400">
+                            <span className="text-xs text-gray-500 dark:text-gray-400">
                               {new Date(todo.dueDate).toLocaleDateString()}
                             </span>
                           )}
                           {todo.tags && todo.tags.length > 0 && (
-                            <div className="flex gap-2">
+                            <div className="flex gap-1.5">
                               {todo.tags.map((tag, index) => (
-                                <span key={index} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-xs">
+                                <span key={index} className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-[10px]">
                                   {tag}
                                 </span>
                               ))}
@@ -826,7 +826,7 @@ const HomePage = () => {
                             }}
                             className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-150"
                           >
-                            <FiChevronsRight size={20} />
+                            <FiChevronsRight size={16} />
                           </button>
                         </div>
                       </div>
@@ -836,34 +836,34 @@ const HomePage = () => {
               </>
             ) : (
               // Upcoming Section with Today's Tasks, Tomorrow and This Week
-              <div className="space-y-8">
-                {/* Today's First 5 Tasks */}
+              <div className="space-y-4">
+                {/* Today's Tasks */}
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-200 mb-4">Today's Tasks</h2>
+                  <h2 className="text-lg font-bold text-gray-700 dark:text-gray-200 mb-3">Today's Tasks</h2>
                   <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-                    <div className="p-4">
+                    <div className="p-3">
                       {!showAddTask ? (
                         <button 
-                          className="flex items-center gap-3 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white group transition-colors duration-150"
+                          className="flex items-center gap-2 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white group transition-colors duration-150"
                           onClick={() => setShowAddTask(true)}
                         >
-                          <span className="text-2xl font-bold">+</span>
-                          <span className="text-base font-medium">Add New Task</span>
+                          <span className="text-xl font-bold">+</span>
+                          <span className="text-sm font-medium">Add New Task</span>
                         </button>
                       ) : (
                         <motion.div
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="bg-[#f4f4f4] dark:bg-gray-700 rounded-lg p-4"
+                          className="bg-[#f4f4f4] dark:bg-gray-700 rounded-lg p-3"
                         >
-                          <form onSubmit={(e) => handleNewTaskSubmit(e, 'today')} className="space-y-4">
+                          <form onSubmit={(e) => handleNewTaskSubmit(e, 'today')} className="space-y-3">
                             <div>
                               <input
                                 type="text"
                                 value={newTaskData.todo}
                                 onChange={(e) => setNewTaskData({...newTaskData, todo: e.target.value})}
                                 placeholder="Task name"
-                                className="w-full py-2 px-3 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none"
+                                className="w-full py-1.5 px-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none text-sm"
                                 autoFocus
                               />
                             </div>
@@ -873,25 +873,11 @@ const HomePage = () => {
                                 value={newTaskData.description}
                                 onChange={(e) => setNewTaskData({...newTaskData, description: e.target.value})}
                                 placeholder="Description"
-                                className="w-full py-2 px-3 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none resize-none h-20"
+                                className="w-full py-1.5 px-2 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none resize-none h-16 text-sm"
                               />
                             </div>
 
-                            <div className="flex gap-4">
-                              <div className="flex-1">
-                                <select
-                                  value={newTaskData.list}
-                                  onChange={(e) => setNewTaskData({...newTaskData, list: e.target.value})}
-                                  className="w-full py-2 px-3 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none"
-                                >
-                                  <option value="Personal">Personal</option>
-                                  <option value="Work">Work</option>
-                                  <option value="List 1">List 1</option>
-                                </select>
-                              </div>
-                            </div>
-
-                            <div className="flex justify-end gap-3">
+                            <div className="flex justify-end gap-2">
                               <button
                                 type="button"
                                 onClick={() => {
@@ -906,13 +892,13 @@ const HomePage = () => {
                                     section: 'today'
                                   });
                                 }}
-                                className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                                className="px-3 py-1.5 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 text-sm"
                               >
                                 Cancel
                               </button>
                               <button
                                 type="submit"
-                                className="px-4 py-2 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150"
+                                className="px-3 py-1.5 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150 text-sm"
                               >
                                 Add Task
                               </button>
@@ -921,7 +907,7 @@ const HomePage = () => {
                         </motion.div>
                       )}
                     </div>
-                    <div className="max-h-[500px] overflow-y-auto">
+                    <div className="max-h-[400px] overflow-y-auto">
                       {todos.map((todo) => (
                         <motion.div
                           key={todo.id}
@@ -929,35 +915,35 @@ const HomePage = () => {
                           animate={{ x: 0, opacity: 1 }}
                           className="group border-b border-gray-100 dark:border-gray-700 last:border-b-0"
                         >
-                          <div className="flex items-center justify-between py-4 px-4 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">
-                            <div className="flex items-center gap-4 flex-1">
+                          <div className="flex items-center justify-between py-2 px-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">
+                            <div className="flex items-center gap-3 flex-1">
                               <input
                                 type="checkbox"
                                 checked={todo.completed}
                                 onChange={() => handleToggleTodo(todo.id)}
-                                className="w-5 h-5 rounded border-gray-300 text-[#ffd43b] focus:ring-[#ffd43b]"
+                                className="w-4 h-4 rounded border-gray-300 text-[#ffd43b] focus:ring-[#ffd43b]"
                               />
                               <div className="flex flex-col">
-                                <span className={`${todo.completed ? 'line-through text-gray-400 dark:text-gray-500' : 'text-gray-800 dark:text-gray-200'} font-semibold`}>
+                                <span className={`${todo.completed ? 'line-through text-gray-400 dark:text-gray-500' : 'text-gray-800 dark:text-gray-200'} text-sm font-medium`}>
                                   {todo.todo}
                                 </span>
                                 {todo.description && (
-                                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                                  <span className="text-xs text-gray-500 dark:text-gray-400">
                                     {todo.description}
                                   </span>
                                 )}
                               </div>
                             </div>
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-3">
                               {todo.dueDate && (
-                                <span className="text-sm text-gray-500 dark:text-gray-400">
+                                <span className="text-xs text-gray-500 dark:text-gray-400">
                                   {new Date(todo.dueDate).toLocaleDateString()}
                                 </span>
                               )}
                               {todo.tags && todo.tags.length > 0 && (
-                                <div className="flex gap-2">
+                                <div className="flex gap-1.5">
                                   {todo.tags.map((tag, index) => (
-                                    <span key={index} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-xs">
+                                    <span key={index} className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-[10px]">
                                       {tag}
                                     </span>
                                   ))}
@@ -970,7 +956,7 @@ const HomePage = () => {
                                 }}
                                 className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-150"
                               >
-                                <FiChevronsRight size={20} />
+                                <FiChevronsRight size={16} />
                               </button>
                             </div>
                           </div>
@@ -980,34 +966,34 @@ const HomePage = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 gap-4">
                   {/* Tomorrow Section */}
-                  <div className="pr-4">
-                    <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-200 mb-4">Tomorrow</h2>
+                  <div className="pr-2">
+                    <h2 className="text-lg font-bold text-gray-700 dark:text-gray-200 mb-3">Tomorrow</h2>
                     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-                      <div className="max-h-[400px] overflow-y-auto p-4">
+                      <div className="max-h-[300px] overflow-y-auto p-3">
                         {!showAddTaskTomorrow ? (
                           <button 
-                            className="flex items-center gap-3 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white group transition-colors duration-150"
+                            className="flex items-center gap-2 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white group transition-colors duration-150"
                             onClick={() => setShowAddTaskTomorrow(true)}
                           >
-                            <span className="text-2xl font-bold">+</span>
-                            <span className="text-base font-medium">Add New Task</span>
+                            <span className="text-xl font-bold">+</span>
+                            <span className="text-sm font-medium">Add New Task</span>
                           </button>
                         ) : (
                           <motion.div
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-[#f4f4f4] dark:bg-gray-700 rounded-lg p-4"
+                            className="bg-[#f4f4f4] dark:bg-gray-700 rounded-lg p-3"
                           >
-                            <form onSubmit={(e) => handleNewTaskSubmit(e, 'tomorrow')} className="space-y-4">
+                            <form onSubmit={(e) => handleNewTaskSubmit(e, 'tomorrow')} className="space-y-3">
                               <div>
                                 <input
                                   type="text"
                                   value={tomorrowTaskData.todo}
                                   onChange={(e) => setTomorrowTaskData({...tomorrowTaskData, todo: e.target.value})}
                                   placeholder="Task name"
-                                  className="w-full py-2 px-3 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none"
+                                  className="w-full py-1.5 px-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none text-sm"
                                   autoFocus
                                 />
                               </div>
@@ -1017,11 +1003,11 @@ const HomePage = () => {
                                   value={tomorrowTaskData.description}
                                   onChange={(e) => setTomorrowTaskData({...tomorrowTaskData, description: e.target.value})}
                                   placeholder="Description"
-                                  className="w-full py-2 px-3 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none resize-none h-20"
+                                  className="w-full py-1.5 px-2 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none resize-none h-16 text-sm"
                                 />
                               </div>
 
-                              <div className="flex justify-end gap-3">
+                              <div className="flex justify-end gap-2">
                                 <button
                                   type="button"
                                   onClick={() => {
@@ -1036,13 +1022,13 @@ const HomePage = () => {
                                       section: 'tomorrow'
                                     });
                                   }}
-                                  className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                                  className="px-3 py-1.5 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 text-sm"
                                 >
                                   Cancel
                                 </button>
                                 <button
                                   type="submit"
-                                  className="px-4 py-2 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150"
+                                  className="px-3 py-1.5 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150 text-sm"
                                 >
                                   Add Task
                                 </button>
@@ -1056,37 +1042,37 @@ const HomePage = () => {
                             key={todo.id}
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
-                            className="group border-b border-gray-100 dark:border-gray-700 last:border-b-0 mt-4"
+                            className="group border-b border-gray-100 dark:border-gray-700 last:border-b-0 mt-2"
                           >
-                            <div className="flex items-center justify-between py-4 px-4 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">
-                              <div className="flex items-center gap-4 flex-1">
+                            <div className="flex items-center justify-between py-2 px-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">
+                              <div className="flex items-center gap-3 flex-1">
                                 <input
                                   type="checkbox"
                                   checked={todo.completed}
                                   onChange={() => handleToggleTodo(todo.id)}
-                                  className="w-5 h-5 rounded border-gray-300 text-[#ffd43b] focus:ring-[#ffd43b]"
+                                  className="w-4 h-4 rounded border-gray-300 text-[#ffd43b] focus:ring-[#ffd43b]"
                                 />
                                 <div className="flex flex-col">
-                                  <span className={`${todo.completed ? 'line-through text-gray-400 dark:text-gray-500' : 'text-gray-800 dark:text-gray-200'} font-semibold`}>
+                                  <span className={`${todo.completed ? 'line-through text-gray-400 dark:text-gray-500' : 'text-gray-800 dark:text-gray-200'} text-sm font-medium`}>
                                     {todo.todo}
                                   </span>
                                   {todo.description && (
-                                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                                    <span className="text-xs text-gray-500 dark:text-gray-400">
                                       {todo.description}
                                     </span>
                                   )}
                                 </div>
                               </div>
-                              <div className="flex items-center gap-4">
+                              <div className="flex items-center gap-3">
                                 {todo.dueDate && (
-                                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                                  <span className="text-xs text-gray-500 dark:text-gray-400">
                                     {new Date(todo.dueDate).toLocaleDateString()}
                                   </span>
                                 )}
                                 {todo.tags && todo.tags.length > 0 && (
-                                  <div className="flex gap-2">
+                                  <div className="flex gap-1.5">
                                     {todo.tags.map((tag, index) => (
-                                      <span key={index} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-xs">
+                                      <span key={index} className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-[10px]">
                                         {tag}
                                       </span>
                                     ))}
@@ -1099,7 +1085,7 @@ const HomePage = () => {
                                   }}
                                   className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-150"
                                 >
-                                  <FiChevronsRight size={20} />
+                                  <FiChevronsRight size={16} />
                                 </button>
                               </div>
                             </div>
@@ -1111,31 +1097,31 @@ const HomePage = () => {
 
                   {/* This Week Section */}
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-200 mb-4">This Week</h2>
+                    <h2 className="text-lg font-bold text-gray-700 dark:text-gray-200 mb-3">This Week</h2>
                     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-                      <div className="max-h-[400px] overflow-y-auto p-4">
+                      <div className="max-h-[300px] overflow-y-auto p-3">
                         {!showAddTaskWeek ? (
                           <button 
-                            className="flex items-center gap-3 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white group transition-colors duration-150"
+                            className="flex items-center gap-2 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white group transition-colors duration-150"
                             onClick={() => setShowAddTaskWeek(true)}
                           >
-                            <span className="text-2xl font-bold">+</span>
-                            <span className="text-base font-medium">Add New Task</span>
+                            <span className="text-xl font-bold">+</span>
+                            <span className="text-sm font-medium">Add New Task</span>
                           </button>
                         ) : (
                           <motion.div
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-[#f4f4f4] dark:bg-gray-700 rounded-lg p-4"
+                            className="bg-[#f4f4f4] dark:bg-gray-700 rounded-lg p-3"
                           >
-                            <form onSubmit={(e) => handleNewTaskSubmit(e, 'week')} className="space-y-4">
+                            <form onSubmit={(e) => handleNewTaskSubmit(e, 'week')} className="space-y-3">
                               <div>
                                 <input
                                   type="text"
                                   value={weekTaskData.todo}
                                   onChange={(e) => setWeekTaskData({...weekTaskData, todo: e.target.value})}
                                   placeholder="Task name"
-                                  className="w-full py-2 px-3 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none"
+                                  className="w-full py-1.5 px-2 border-b-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none text-sm"
                                   autoFocus
                                 />
                               </div>
@@ -1145,11 +1131,11 @@ const HomePage = () => {
                                   value={weekTaskData.description}
                                   onChange={(e) => setWeekTaskData({...weekTaskData, description: e.target.value})}
                                   placeholder="Description"
-                                  className="w-full py-2 px-3 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none resize-none h-20"
+                                  className="w-full py-1.5 px-2 border-2 border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:border-[#ffd43b] dark:focus:border-[#ffd43b] outline-none resize-none h-16 text-sm"
                                 />
                               </div>
 
-                              <div className="flex justify-end gap-3">
+                              <div className="flex justify-end gap-2">
                                 <button
                                   type="button"
                                   onClick={() => {
@@ -1164,13 +1150,13 @@ const HomePage = () => {
                                       section: 'week'
                                     });
                                   }}
-                                  className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                                  className="px-3 py-1.5 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 text-sm"
                                 >
                                   Cancel
                                 </button>
                                 <button
                                   type="submit"
-                                  className="px-4 py-2 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150"
+                                  className="px-3 py-1.5 bg-[#ffd43b] text-gray-900 rounded-lg hover:bg-[#fcc419] transition-colors duration-150 text-sm"
                                 >
                                   Add Task
                                 </button>
@@ -1184,37 +1170,37 @@ const HomePage = () => {
                             key={todo.id}
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
-                            className="group border-b border-gray-100 dark:border-gray-700 last:border-b-0 mt-4"
+                            className="group border-b border-gray-100 dark:border-gray-700 last:border-b-0 mt-2"
                           >
-                            <div className="flex items-center justify-between py-4 px-4 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">
-                              <div className="flex items-center gap-4 flex-1">
+                            <div className="flex items-center justify-between py-2 px-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg">
+                              <div className="flex items-center gap-3 flex-1">
                                 <input
                                   type="checkbox"
                                   checked={todo.completed}
                                   onChange={() => handleToggleTodo(todo.id)}
-                                  className="w-5 h-5 rounded border-gray-300 text-[#ffd43b] focus:ring-[#ffd43b]"
+                                  className="w-4 h-4 rounded border-gray-300 text-[#ffd43b] focus:ring-[#ffd43b]"
                                 />
                                 <div className="flex flex-col">
-                                  <span className={`${todo.completed ? 'line-through text-gray-400 dark:text-gray-500' : 'text-gray-800 dark:text-gray-200'} font-semibold`}>
+                                  <span className={`${todo.completed ? 'line-through text-gray-400 dark:text-gray-500' : 'text-gray-800 dark:text-gray-200'} text-sm font-medium`}>
                                     {todo.todo}
                                   </span>
                                   {todo.description && (
-                                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                                    <span className="text-xs text-gray-500 dark:text-gray-400">
                                       {todo.description}
                                     </span>
                                   )}
                                 </div>
                               </div>
-                              <div className="flex items-center gap-4">
+                              <div className="flex items-center gap-3">
                                 {todo.dueDate && (
-                                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                                  <span className="text-xs text-gray-500 dark:text-gray-400">
                                     {new Date(todo.dueDate).toLocaleDateString()}
                                   </span>
                                 )}
                                 {todo.tags && todo.tags.length > 0 && (
-                                  <div className="flex gap-2">
+                                  <div className="flex gap-1.5">
                                     {todo.tags.map((tag, index) => (
-                                      <span key={index} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-xs">
+                                      <span key={index} className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-[10px]">
                                         {tag}
                                       </span>
                                     ))}
@@ -1227,7 +1213,7 @@ const HomePage = () => {
                                   }}
                                   className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-150"
                                 >
-                                  <FiChevronsRight size={20} />
+                                  <FiChevronsRight size={16} />
                                 </button>
                               </div>
                             </div>
