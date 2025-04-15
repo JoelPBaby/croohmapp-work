@@ -58,17 +58,17 @@ const SignIn = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="w-1/2 flex flex-col justify-center"
       >
-        <div className="p-16 bg-white h-[89vh] w-[77vh] border-2 border-[#e0e0e0] rounded-[30px] flex flex-col justify-center mr-[25vh]">
+        <div className="p-8 bg-white h-[89vh] w-[77vh] border-2 border-[#e0e0e0] rounded-[30px] flex flex-col justify-center mr-[25vh]">
           <motion.h1 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-[3rem] text-[#111] mb-8 font-bold ml-8"
+            className="text-2xl text-[#111] mb-6 font-bold ml-8"
           >
             Sign In
           </motion.h1>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <motion.input
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -77,7 +77,7 @@ const SignIn = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-[80%] ml-8 p-4 rounded-lg border-2 border-[#e0e0e0] focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700] transition-all duration-300"
+              className="w-[80%] ml-8 p-3 rounded-lg border-2 border-[#e0e0e0] focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700] transition-all duration-300 text-sm text-black"
               placeholder="Email"
               required
             />
@@ -91,7 +91,7 @@ const SignIn = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full p-4 rounded-lg border-2 border-[#e0e0e0] focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700] transition-all duration-300 pr-12 text-black"
+                className="w-full p-3 rounded-lg border-2 border-[#e0e0e0] focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700] transition-all duration-300 pr-12 text-black text-sm"
                 placeholder="Password"
                 required
               />
@@ -100,7 +100,7 @@ const SignIn = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
               >
-                {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                {showPassword ? <FiEyeOff size={16} /> : <FiEye size={16} />}
               </button>
             </div>
             
@@ -126,7 +126,7 @@ const SignIn = () => {
                 }
               }}
               type="submit"
-              className="w-[80%] ml-8 bg-[#FFD700] text-[#111] py-4 px-8 rounded-lg text-base font-medium cursor-pointer transition-all duration-150 relative overflow-hidden group"
+              className="w-[80%] ml-8 bg-[#FFD700] text-[#111] py-3 px-6 rounded-lg text-sm font-medium cursor-pointer transition-all duration-150 relative overflow-hidden group"
             >
               <motion.span
                 className="relative z-10"
@@ -148,10 +148,10 @@ const SignIn = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.9 }}
-              className="flex items-center justify-center w-[80%] ml-8 my-6"
+              className="flex items-center justify-center w-[80%] ml-8 my-4"
             >
               <div className="flex-1 h-[1px] bg-[#e0e0e0]"></div>
-              <span className="mx-4 text-[#666]">or</span>
+              <span className="mx-4 text-[#666] text-sm">or</span>
               <div className="flex-1 h-[1px] bg-[#e0e0e0]"></div>
             </motion.div>
 
@@ -160,7 +160,7 @@ const SignIn = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 1 }}
-              className="flex gap-4 w-[80%] ml-8"
+              className="flex gap-3 w-[80%] ml-8"
             >
               <motion.button 
                 whileHover={{ 
@@ -180,7 +180,7 @@ const SignIn = () => {
                     ease: "easeOut"
                   }
                 }}
-                className="flex-1 bg-[#ebebeb] text-[#111] py-4 px-8 rounded-lg text-base font-bold cursor-pointer transition-all duration-150 relative overflow-hidden group"
+                className="flex-1 bg-[#ebebeb] text-[#111] py-3 px-6 rounded-lg text-sm font-medium cursor-pointer transition-all duration-150 relative overflow-hidden group"
               >
                 <motion.span
                   className="relative z-10"
@@ -214,7 +214,7 @@ const SignIn = () => {
                     ease: "easeOut"
                   }
                 }}
-                className="flex-1 bg-[#ebebeb] text-[#111] py-4 px-8 rounded-lg text-base font-bold cursor-pointer transition-all duration-150 relative overflow-hidden group"
+                className="flex-1 bg-[#ebebeb] text-[#111] py-3 px-6 rounded-lg text-sm font-medium cursor-pointer transition-all duration-150 relative overflow-hidden group"
               >
                 <motion.span
                   className="relative z-10"
@@ -237,7 +237,7 @@ const SignIn = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 1.1 }}
-            className="mt-8 text-center text-[0.9rem] text-[#666]"
+            className="mt-6 text-center text-xs text-[#666]"
           >
             Don't have an account? Contact administrator for access.
           </motion.p>
